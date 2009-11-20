@@ -1,9 +1,9 @@
 
 require 'rubygems'
-require 'lib/io/specification_file_reader'
-require 'lib/simulation/simulation_specification'
-require 'lib/simulation/simulation_coordinator'
-require 'lib/mode/mode_factory'
+require 'lib/prefer/io/specification_file_reader'
+require 'lib/prefer/simulation/simulation_specification'
+require 'lib/prefer/simulation/simulation_coordinator'
+require 'lib/prefer/mode/mode_factory'
 
 # get arguments
 arguments = ARGV

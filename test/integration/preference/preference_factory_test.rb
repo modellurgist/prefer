@@ -1,5 +1,5 @@
 
-require 'test/test_helper'
+require 'test/backend_test_helper'
 require 'lib/prefer/probability/probability_distribution'
 require 'lib/prefer/probability/distribution_analyzer'
 

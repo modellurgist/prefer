@@ -1,5 +1,5 @@
 
-require 'lib/mode/range_runner'
+require 'lib/prefer/mode/range_runner'
 
 class ModeFactory
 

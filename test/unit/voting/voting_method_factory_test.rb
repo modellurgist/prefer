@@ -1,5 +1,5 @@
 
-require 'test/test_helper'
+require 'test/backend_test_helper'
 require 'lib/prefer/voting/voting_method_factory'
 
 class VotingMethodFactoryTest < Test::Unit::TestCase

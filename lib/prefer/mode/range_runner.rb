@@ -1,5 +1,5 @@
 
-require 'lib/io/report_writer'
+require 'lib/prefer/io/report_writer'
 
 class RangeRunner
 

@@ -9,19 +9,3 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 
-
-desc "Run all back-end tests under test/ recursively"
-task :test do 
-    Rake::TestTask.new do |t|
-          t.libs << "test"
-              t.test_files = FileList.new('test/**/*_test.rb') do |filelist|
-                  filelist.exclude('test_helper.rb')
-                      end
-              t.verbose = true
-                end
-end
-
-desc "Backup project, excluding git repository"
-task :backup do
-    `tar zcvf ../prefer.tar.gz . --exclude=.git --exclude=output`
-end
