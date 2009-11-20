@@ -1,5 +1,5 @@
 
-require 'test/backend_test_helper'
+require 'test/test_helper'
 require 'lib/prefer/voting/election_coordinator'
 
 class ElectionCoordinatorTest < Test::Unit::TestCase

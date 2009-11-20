@@ -2,6 +2,28 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 
+#require 'rubygems'
+require 'context'
+require 'mocha'
+#require 'lib/require_relative'
+require File.expand_path(File.dirname(__FILE__) + "/../lib/require_relative")
+
+class Test::Unit::TestCase
+
+  def assert_includes_all_from(a_collection, another_collection)
+    assert_block do
+      another_collection.each do |item|
+        unless a_collection.include?(item)
+          break false
+        end
+        true
+      end
+    end
+  end
+
+end
+
+
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the

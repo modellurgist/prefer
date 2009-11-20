@@ -1,8 +1,9 @@
 
-require 'test/backend_test_helper'
-require 'lib/prefer/simulation/simulation_analyzer'
+require 'test/test_helper'
+require_relative '../../../lib/prefer/simulation/simulation_analyzer' #'lib/prefer/simulation/simulation_analyzer'
+#require 'simulation_analyzer'
 
-class SimulationAnalyzerTest < Test::Unit::TestCase
+class SimulationAnalyzerTest < ActiveSupport::TestCase # Test::Unit::TestCase
 
   context "given a simulation coordinator initialized with valid specifications for 10 citizens, 3 alternatives, plurality method, and increment size 1" do
     setup do 

@@ -1,5 +1,5 @@
 
-require 'test/backend_test_helper'
+require 'test/test_helper'
 require 'lib/prefer/voting/plurality_method'
 
 class PluralityMethodTest < Test::Unit::TestCase

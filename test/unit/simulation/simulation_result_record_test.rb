@@ -1,5 +1,5 @@
 
-require 'test/backend_test_helper'
+require 'test/test_helper'
 require 'lib/prefer/simulation/simulation_result_record'
 
 class SimulationResultRecordTest < Test::Unit::TestCase

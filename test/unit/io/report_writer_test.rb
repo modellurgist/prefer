@@ -1,5 +1,5 @@
 
-require 'test/backend_test_helper'
+require 'test/test_helper'
 require 'lib/prefer/io/report_writer'
 
 class ReportWriterTest < Test::Unit::TestCase

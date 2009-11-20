@@ -1,5 +1,5 @@
 
-require 'test/backend_test_helper'
+require 'test/test_helper'
 
 class DistributionAnalyzerTest < Test::Unit::TestCase
 

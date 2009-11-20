@@ -1,5 +1,5 @@
 require 'test_help'
-require 'test/backend_test_helper'
+require 'test/test_helper'
 require 'lib/prefer/citizen/citizen'
 
 class CitizenTest < Test::Unit::TestCase

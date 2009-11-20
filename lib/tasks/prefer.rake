@@ -9,8 +9,8 @@ task :backendtest do
   Rake::TestTask.new do |t|
     t.libs << "test"
     t.test_files = FileList.new('test/**/*_test.rb') do |filelist|
-      filelist.exclude('test_helper.rb')
-      filelist.exclude('backend_test_helper.rb')
+      #filelist.exclude('test_helper.rb')
+      #filelist.exclude('backend_test_helper.rb')
     end
     t.verbose = true
   end

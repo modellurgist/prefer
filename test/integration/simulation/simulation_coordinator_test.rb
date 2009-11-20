@@ -1,5 +1,5 @@
 
-require 'test/backend_test_helper'
+require 'test/test_helper'
 require 'lib/prefer/simulation/simulation_coordinator'
 
 class SimulationCoordinatorTest < Test::Unit::TestCase

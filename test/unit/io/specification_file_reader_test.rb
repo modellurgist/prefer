@@ -1,5 +1,5 @@
 
-require 'test/backend_test_helper'
+require 'test/test_helper'
 require 'lib/prefer/io/specification_file_reader'
 
 class SpecificationFileReaderTest < Test::Unit::TestCase
