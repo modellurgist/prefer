@@ -1,0 +1,10 @@
+*.log
+log/*.log
+config/database.yml
+Capfile
+config/deploy.rb
+tmp/**/*
+db/schema.rb
+public/javascripts/all.js
+public/stylesheets/all.css
+public/cache
