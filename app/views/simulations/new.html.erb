@@ -1,0 +1,27 @@
+<h1>New simulation</h1>
+
+<% form_for(@simulation) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :sample_size_increment %><br />
+    <%= f.text_field :sample_size_increment %>
+  </p>
+  <p>
+    <%= f.label :population_size %><br />
+    <%= f.text_field :population_size %>
+  </p>
+  <p>
+    <%= f.label :voting_method %><br />
+    <%= f.text_field :voting_method %>
+  </p>
+  <p>
+    <%= f.label :mode %><br />
+    <%= f.text_field :mode %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', simulations_path %>

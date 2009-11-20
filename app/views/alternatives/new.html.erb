@@ -1,0 +1,15 @@
+<h1>New alternative</h1>
+
+<% form_for(@alternative) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :alternative %><br />
+    <%= f.text_field :alternative %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', alternatives_path %>
