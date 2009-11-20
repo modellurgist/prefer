@@ -1,5 +1,6 @@
 
 require 'test/test_helper'
+require 'lib/prefer/probability/probability_distribution'
 
 class ProbabilityDistributionTest < Test::Unit::TestCase
 
