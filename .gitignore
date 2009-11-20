@@ -10,3 +10,6 @@ public/stylesheets/all.css
 public/cache
 input/*
 output/*
+**/**/**/*.rb.swp
+**/**/*.rb.swp
+*/*.rb.swp
