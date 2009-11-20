@@ -2,10 +2,8 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 
-#require 'rubygems'
 require 'context'
 require 'mocha'
-#require 'lib/require_relative'
 require File.expand_path(File.dirname(__FILE__) + "/../lib/require_relative")
 
 class Test::Unit::TestCase
