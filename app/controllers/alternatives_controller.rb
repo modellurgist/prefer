@@ -1,9 +1,9 @@
 class AlternativesController < ApplicationController
+
   # GET /alternatives
   # GET /alternatives.xml
   def index
-    #@alternatives = Alternative.all
-    @alternatives = Array.new 
+    @alternatives = Alternative.all
 
     respond_to do |format|
       format.html # index.html.erb

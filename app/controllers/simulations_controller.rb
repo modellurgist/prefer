@@ -1,9 +1,9 @@
 class SimulationsController < ApplicationController
+
   # GET /simulations
   # GET /simulations.xml
   def index
-    #@simulations = Simulation.all
-    @simulations = Array.new
+    @simulations = Simulation.all
 
     respond_to do |format|
       format.html # index.html.erb
