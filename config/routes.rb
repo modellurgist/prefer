@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :alternatives_sets
+
   map.resources :alternatives
 
   map.resources :simulations
