@@ -1,0 +1,20 @@
+<h1>Listing alternatives_sets</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+  </tr>
+
+<% @alternatives_sets.each do |alternatives_set| %>
+  <tr>
+    <td><%=h alternatives_set.description %></td>
+    <td><%= link_to 'Show', alternatives_set %></td>
+    <td><%= link_to 'Edit', edit_alternatives_set_path(alternatives_set) %></td>
+    <td><%= link_to 'Destroy', alternatives_set, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New alternatives_set', new_alternatives_set_path %>

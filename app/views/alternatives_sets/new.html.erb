@@ -1,0 +1,15 @@
+<h1>New alternatives_set</h1>
+
+<% form_for(@alternatives_set) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', alternatives_sets_path %>
