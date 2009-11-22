@@ -1,0 +1,16 @@
+<div class="alternative">
+  <% new_or_existing = alternative.new_record? ? 'new' : 'existing' %>
+  <% prefix = "alternatives_set[#{new_or_existing}_alternative_attributes][]" %>
+
+  <% fields_for prefix, alternative do |alternative_form| -%>
+    <p>
+      Alternative:  
+      <% if (new_or_existing == 'new') then %>
+        <%= collection_select(:alternative, :alternative_id, Alternative.all, :id, :alternative) %>
+      <% else %>
+        <%= alternative_form.text_field :alternative %>
+      <% end %>
+      <%= link_to_function "remove", "$(this).up('alternative').remove()" %>
+    </p>
+  <% end -%>
+</div>

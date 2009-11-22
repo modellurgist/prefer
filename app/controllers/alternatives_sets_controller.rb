@@ -25,6 +25,7 @@ class AlternativesSetsController < ApplicationController
   # GET /alternatives_sets/new.xml
   def new
     @alternatives_set = AlternativesSet.new
+    @alternatives_set.alternatives.build
 
     respond_to do |format|
       format.html # new.html.erb
