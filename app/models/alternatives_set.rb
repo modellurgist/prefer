@@ -4,7 +4,7 @@ class AlternativesSet < ActiveRecord::Base
 
   def new_alternative_attributes=(alternative_attributes)
     alternative_attributes.each do |attributes|
-      alternative.build(attributes)
+      alternatives.build(attributes)
     end
   end
 
