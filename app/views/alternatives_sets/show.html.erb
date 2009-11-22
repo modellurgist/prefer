@@ -1,0 +1,14 @@
+<p>
+  <b>Description:</b>
+  <%=h @alternatives_set.description %>
+</p>
+<p>
+  <b>Its alternatives:</b><br />
+  <% @alternatives_set.alternatives.each do |alternative| %>
+    <%= alternative.alternative %><br />
+  <% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_alternatives_set_path(@alternatives_set) %> |
+<%= link_to 'Back', alternatives_sets_path %>

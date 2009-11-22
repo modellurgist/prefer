@@ -42,6 +42,10 @@ class AlternativesSetsController < ApplicationController
   # POST /alternatives_sets.xml
   def create
     @alternatives_set = AlternativesSet.new(params[:alternatives_set])
+    params[:alternative].each do |foreign_key_name,alternative_id|
+      alternative = Alternative.find(alternative_id)
+      @alternatives_set.alternatives << alternative
+    end
 
     respond_to do |format|
       if @alternatives_set.save
