@@ -6,8 +6,7 @@
     <p>
       Alternative:  
       <% if (new_or_existing == 'new') then %>
-        <#%= collection_select(:alternative, :alternative_id, Alternative.all, :id, :alternative) %>
-        <%= alternative_form.text_field :alternative %>
+        <%= alternative_form.collection_select(:id, Alternative.all, :id, :alternative) %>
       <% else %>
         <%= alternative_form.text_field :alternative %>
       <% end %>
