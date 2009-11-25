@@ -30,7 +30,7 @@ class Simulation < ActiveRecord::Base
 
   def alternatives
     alternatives_set = self.alternatives_set
-    alternatives_set.alternatives
+    alternatives_set.alternatives.collect {|alternative| alternative.alternative}
   end
   
 end
