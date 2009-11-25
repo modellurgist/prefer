@@ -1,5 +1,11 @@
 class SimulationsController < ApplicationController
 
+  def run
+    simulation = Simulation.find(params[:id])
+    simulation.run
+    @report_string = simulation.report_string
+  end
+
   # GET /simulations
   # GET /simulations.xml
   def index

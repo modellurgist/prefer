@@ -4,6 +4,7 @@ require 'lib/prefer/io/specification_file_reader'
 require 'lib/prefer/simulation/simulation_specification'
 require 'lib/prefer/simulation/simulation_coordinator'
 require 'lib/prefer/mode/mode_factory'
+require 'lib/prefer/constants/simulation_constants'
 
 # get arguments
 arguments = ARGV
@@ -31,7 +32,6 @@ else
   specifications_reader = SpecificationFileReader.new(specifications_file)
 
   # run all simulations and analyses, according to specifications
-  EXPORT_ON = true
   mode_factory = ModeFactory.new
   runner = mode_factory.build_runner(mode_class_name)
   runner.run(alternatives_reader, specifications_reader, EXPORT_ON)

@@ -9,10 +9,7 @@ class ReportWriter
   end
 
   def method_missing(name, *args)
-    unless (@file)
-      create_file
-    end
-    @file.send(name, *args) 
+    # define in subclass
   end
 
   def report_all_sample_results

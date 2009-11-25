@@ -16,6 +16,7 @@
     <td><%=h simulation.voting_method %></td>
     <td><%=h simulation.mode %></td>
     <td><%=h simulation.alternatives_set_name %></td>
+    <td><%= link_to 'Run', run_simulation_path(simulation) %></td>
     <td><%= link_to 'Show', simulation %></td>
     <td><%= link_to 'Edit', edit_simulation_path(simulation) %></td>
     <td><%= link_to 'Destroy', simulation, :confirm => 'Are you sure?', :method => :delete %></td>
