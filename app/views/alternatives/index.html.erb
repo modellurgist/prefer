@@ -1,20 +1,24 @@
-<h1>Listing alternatives</h1>
+
+<%= render "shared/menu" %>
+
+<h1>Alternatives</h1>
 
 <table>
   <tr>
     <th>Alternative</th>
+    <th class="link"></th>
+    <th class="link"></th>
   </tr>
 
 <% @alternatives.each do |alternative| %>
   <tr>
     <td><%=h alternative.alternative %></td>
-    <td><%= link_to 'Show', alternative %></td>
-    <td><%= link_to 'Edit', edit_alternative_path(alternative) %></td>
-    <td><%= link_to 'Destroy', alternative, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="link"><%= link_to 'Edit', edit_alternative_path(alternative) %></td>
+    <td class="link"><%= link_to 'Delete', alternative, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New alternative', new_alternative_path %>
+<%= link_to 'Add New Alternative to Pool', new_alternative_path %>

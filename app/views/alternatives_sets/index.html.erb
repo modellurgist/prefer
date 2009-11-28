@@ -1,20 +1,30 @@
-<h1>Listing alternatives_sets</h1>
+
+<%= render "shared/menu" %>
+
+<h1>Sets of Alternatives</h1>
 
 <table>
   <tr>
     <th>Description</th>
+    <th>Alternatives</th>
+    <th class="link"></th>
+    <th class="link"></th>
   </tr>
 
 <% @alternatives_sets.each do |alternatives_set| %>
   <tr>
     <td><%=h alternatives_set.description %></td>
-    <td><%= link_to 'Show', alternatives_set %></td>
-    <td><%= link_to 'Edit', edit_alternatives_set_path(alternatives_set) %></td>
-    <td><%= link_to 'Destroy', alternatives_set, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td> 
+      <% alternatives_set.alternatives.each do |alternative| %>
+        <%=h alternative.alternative %><% unless alternative == alternatives_set.alternatives.last %>,<% end %>
+      <% end %>
+    </td>
+    <td class="link"><%= link_to 'Edit', edit_alternatives_set_path(alternatives_set) %></td>
+    <td class="link"><%= link_to 'Delete', alternatives_set, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New alternatives_set', new_alternatives_set_path %>
+<%= link_to 'Build New Set of Alternatives', new_alternatives_set_path %>

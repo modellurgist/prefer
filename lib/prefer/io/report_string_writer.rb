@@ -13,7 +13,7 @@ class ReportStringWriter < ReportWriter
   def method_missing(name, *args)
     string_item = prepare_string_item(args)
     if (name == :puts)
-      @report_string.concat("<p>#{string_item}</p>") 
+      @report_string.concat("#{string_item.gsub(/\n/,'<br />'}") 
     end
   end
 
