@@ -50,7 +50,7 @@ class AlternativesSetsController < ApplicationController
     respond_to do |format|
       if @alternatives_set.save
         flash[:notice] = 'AlternativesSet was successfully created.'
-        format.html { redirect_to(@alternatives_set) }
+        format.html { redirect_to(alternatives_sets_path) }
         format.xml  { render :xml => @alternatives_set, :status => :created, :location => @alternatives_set }
       else
         format.html { render :action => "new" }

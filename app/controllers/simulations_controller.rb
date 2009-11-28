@@ -52,7 +52,7 @@ class SimulationsController < ApplicationController
     respond_to do |format|
       if @simulation.save
         flash[:notice] = 'Simulation was successfully created.'
-        format.html { redirect_to(@simulation) }
+        format.html { redirect_to(simulations_path) }
         format.xml  { render :xml => @simulation, :status => :created, :location => @simulation }
       else
         format.html { render :action => "new" }

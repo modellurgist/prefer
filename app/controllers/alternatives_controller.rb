@@ -46,7 +46,7 @@ class AlternativesController < ApplicationController
     respond_to do |format|
       if @alternative.save
         flash[:notice] = 'Alternative was successfully created.'
-        format.html { redirect_to(@alternative) }
+        format.html { redirect_to(alternatives_path) }
         format.xml  { render :xml => @alternative, :status => :created, :location => @alternative }
       else
         format.html { render :action => "new" }
