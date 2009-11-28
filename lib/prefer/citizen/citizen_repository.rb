@@ -1,8 +1,11 @@
 
+require 'lib/prefer/probability/random'
+
 class CitizenRepository
 
   def initialize
     @citizens = []
+    @random = Random.new
   end
 
   def store(citizen)
@@ -24,7 +27,7 @@ class CitizenRepository
     sample = Array.new
     citizens_copy = Array.new(@citizens)
     size.times do 
-      selected_citizen = citizens_copy[rand(citizens_copy.size)] 
+      selected_citizen = citizens_copy[@random.select_one_integer(citizens_copy.size)] 
       sample << selected_citizen
       citizens_copy.delete(selected_citizen) { throw :not_found }
     end
