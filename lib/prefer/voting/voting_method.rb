@@ -13,6 +13,12 @@ class VotingMethod
 
   def compatible_sample_analyses
     # define in concrete class
+    []
+  end
+
+  def compatible_simulation_analyses
+    # define in concrete class
+    []
   end
 
   def collect_preference_profiles(citizens)
