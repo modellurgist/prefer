@@ -1,5 +1,5 @@
 
-require 'lib/prefer/analysis/analytical_method_factory'
+require 'lib/prefer/analysis/sample/analytical_method_factory'
 require 'lib/prefer/voting/plurality_method'
 require 'lib/prefer/voting/irv_method'
 

@@ -10,7 +10,7 @@ class IrvMethod < VotingMethod
 
   # private 
 
-  def compatible_analyses
+  def compatible_sample_analyses
     [:vote_percent]
   end
 
