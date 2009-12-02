@@ -39,6 +39,10 @@ class SimulationResultRecord
     @analysis_records.keys 
   end
 
+  def voting_method
+
+  end
+
   # private
  
   # TO-DO: test this.  

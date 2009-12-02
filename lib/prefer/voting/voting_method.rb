@@ -1,4 +1,5 @@
 
+require 'lib/prefer/analysis/sample/analytical_method_factory'
 
 class VotingMethod
 

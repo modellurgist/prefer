@@ -1,4 +1,5 @@
 
+require 'lib/prefer/analysis/simulation/vote_percent_comparison_method'
 
 class SimulationAnalysisFactory
 
@@ -7,6 +8,10 @@ class SimulationAnalysisFactory
   end
 
   # private
+
+  def compare_by_vote_percent
+    VotePercentComparisonMethod.new
+  end
   
   
   

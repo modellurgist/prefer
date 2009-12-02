@@ -17,6 +17,10 @@ class PluralityMethod < VotingMethod
     [:vote_percent]
   end
 
+  def compatible_simulation_analyses
+    [:compare_by_vote_percent]
+  end
+
   def initialize_tally_for_each_alternative(citizens)
     alternatives = citizens.first.profile 
     tallies = Hash.new
