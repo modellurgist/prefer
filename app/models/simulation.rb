@@ -7,7 +7,9 @@ class Simulation < ActiveRecord::Base
   attr_accessor :report_string
 
   def alternatives_set_name 
-    self.alternatives_set.description
+    unless self.alternatives_set.nil?
+      self.alternatives_set.description
+    end
   end
 
   def run
