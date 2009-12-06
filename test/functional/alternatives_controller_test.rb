@@ -17,7 +17,7 @@ class AlternativesControllerTest < ActionController::TestCase
       post :create, :alternative => { }
     end
 
-    assert_redirected_to alternative_path(assigns(:alternative))
+    assert_redirected_to alternatives_path
   end
 
   test "should show alternative" do

@@ -18,7 +18,7 @@ class SimulationsControllerTest < ActionController::TestCase
       post :create, :simulation => { }
     end
 
-    assert_redirected_to simulation_path(assigns(:simulation))
+    assert_redirected_to simulations_path
   end
 
   test "should show simulation" do

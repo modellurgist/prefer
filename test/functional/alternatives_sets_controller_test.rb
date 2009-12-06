@@ -17,7 +17,7 @@ class AlternativesSetsControllerTest < ActionController::TestCase
       post :create, :alternatives_set => { }
     end
 
-    assert_redirected_to alternatives_set_path(assigns(:alternatives_set))
+    assert_redirected_to alternatives_sets_path
   end
 
   test "should show alternatives_set" do
