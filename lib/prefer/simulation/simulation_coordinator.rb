@@ -30,19 +30,26 @@ class SimulationCoordinator
     post_simulation_tasks
   end
 
+  def run_multiple_elections_for_one_sample_size
+    pre_simulation_tasks
+    run_multiple_elections(sample_size)
+    post_simulation_tasks
+  end
+
   def run_one_election_with_new_sample(sample_size)
     pre_simulation_tasks
     run_one_election(sample_size)
     post_simulation_tasks
   end
 
-  def export_one_analysis_to_csv(analysis_symbol, alternative)
-    string = String.new
-    @results.each do |sample_size,record| 
-      string << record.comparison_to_csv(analysis_symbol, alternative)
-    end
-    string
-  end
+  #def export_one_analysis_to_csv(analysis_symbol, alternative)
+  #  string = String.new
+  #  @results.each do |sample_size,record|
+  #    string << record.comparison_to_csv(analysis_symbol, alternative)
+  #  end
+  #  string
+  #end
+
 
   #private
 
@@ -60,16 +67,16 @@ class SimulationCoordinator
   end
 
   def post_simulation_tasks
-    perform_sample_comparisons
+    perform_simulation_analyses
   end
 
   def post_election_tasks(election_coordinator, sample_size)
     store_election_result(election_coordinator, sample_size)
   end
 
-  def perform_sample_comparisons
+  def perform_simulation_analyses
     @analyzer = SimulationAnalyzer.new(@results)
-    @analyzer.perform_sample_comparisons
+    @analyzer.perform_simulation_analyses
   end
 
   def store_election_result(election_coordinator, sample_size)

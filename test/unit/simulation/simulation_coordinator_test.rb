@@ -52,7 +52,7 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
           end
           context "and it receives the request to perform sample comparisons" do
             setup do
-              @coordinator.perform_sample_comparisons
+              @coordinator.perform_simulation_analyses
             end
             test "each result's comparison records should not be empty" do
               assert @results.all? {|sample_size,record| !record.comparison_records.empty?}

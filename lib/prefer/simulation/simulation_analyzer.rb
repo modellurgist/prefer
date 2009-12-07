@@ -11,7 +11,7 @@ class SimulationAnalyzer
     end
   end
 
-  def perform_sample_comparisons
+  def perform_simulation_analyses
     specifications = extract_specifications 
     voting_method = retrieve_voting_method(specifications)
     simulation_analysis_methods(voting_method).each {|method| method.run(@records)}
