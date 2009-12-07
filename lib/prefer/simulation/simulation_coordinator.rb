@@ -23,22 +23,17 @@ class SimulationCoordinator
   end
 
   def run_one_election_for_each_in_sample_size_range
-    pre_run_tasks
+    pre_simulation_tasks
     increment_size.step(@specification.population_size, increment_size) do |sample_size|
-      run_one_election_with_new_sample(sample_size)
+      run_one_election(sample_size)
     end
+    post_simulation_tasks
   end
 
   def run_one_election_with_new_sample(sample_size)
-    pre_run_tasks
-    citizen_sample = select_sample(sample_size)
-    election_coordinator = ElectionCoordinator.new(citizen_sample, @specification.voting_method)
-    store_simulation_result(election_coordinator, sample_size)
-  end
-
-  def perform_sample_comparisons 
-    @analyzer = SimulationAnalyzer.new(@results)
-    @analyzer.perform_sample_comparisons  
+    pre_simulation_tasks
+    run_one_election(sample_size)
+    post_simulation_tasks
   end
 
   def export_one_analysis_to_csv(analysis_symbol, alternative)
@@ -51,11 +46,38 @@ class SimulationCoordinator
 
   #private
 
-  def pre_run_tasks
+  def run_one_election(sample_size)
+    citizen_sample = select_sample(sample_size)
+    election_coordinator = ElectionCoordinator.new(citizen_sample, @specification.voting_method)
+    post_election_tasks(election_coordinator, sample_size)
+  end
+
+  def pre_simulation_tasks
     if (@citizen_repository.empty?)
       create_citizens
       store_citizens
     end
+  end
+
+  def post_simulation_tasks
+    perform_sample_comparisons
+  end
+
+  def post_election_tasks(election_coordinator, sample_size)
+    store_election_result(election_coordinator, sample_size)
+  end
+
+  def perform_sample_comparisons
+    @analyzer = SimulationAnalyzer.new(@results)
+    @analyzer.perform_sample_comparisons
+  end
+
+  def store_election_result(election_coordinator, sample_size)
+    record = SimulationResultRecord.new
+    record.specifications = @specification.specifications
+    election_coordinator.report_election(record)
+    election_coordinator.report_analysis(record)
+    @results[sample_size] = record
   end
 
   def create_citizens
@@ -76,14 +98,6 @@ class SimulationCoordinator
 
   def select_sample(sample_size)
     @citizen_repository.sample(sample_size)
-  end
-
-  def store_simulation_result(election_coordinator, sample_size)
-    record = SimulationResultRecord.new
-    record.specifications = @specification.specifications
-    election_coordinator.report_election(record)
-    election_coordinator.report_analysis(record)
-    @results[sample_size] = record 
   end
 
   def collected_profiles
