@@ -16,7 +16,7 @@ class Simulation < ActiveRecord::Base
     mode_factory = ModeFactory.new
     runner = mode_factory.build_runner(self.mode)
     specifications = build_specifications_hash
-    @report_string = runner.single_run_with_hash_parameters(specifications, EXPORT_ON)
+    @report_string = runner.run_with_hash_parameters(specifications, EXPORT_ON)
   end
 
   # private

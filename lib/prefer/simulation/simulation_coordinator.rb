@@ -17,10 +17,23 @@ class SimulationCoordinator
     @citizen_repository = CitizenRepository.new
   end
 
+  # this method only used until affected tests use method it delegates to
   def run
-    create_citizens
-    store_citizens
-    run_one_simulation_for_each_sample
+    run_one_election_for_each_in_sample_size_range
+  end
+
+  def run_one_election_for_each_in_sample_size_range
+    pre_run_tasks
+    increment_size.step(@specification.population_size, increment_size) do |sample_size|
+      run_one_election_with_new_sample(sample_size)
+    end
+  end
+
+  def run_one_election_with_new_sample(sample_size)
+    pre_run_tasks
+    citizen_sample = select_sample(sample_size)
+    election_coordinator = ElectionCoordinator.new(citizen_sample, @specification.voting_method)
+    store_simulation_result(election_coordinator, sample_size)
   end
 
   def perform_sample_comparisons 
@@ -37,6 +50,13 @@ class SimulationCoordinator
   end
 
   #private
+
+  def pre_run_tasks
+    if (@citizen_repository.empty?)
+      create_citizens
+      store_citizens
+    end
+  end
 
   def create_citizens
     for index in 1..@specification.population_size  
@@ -56,18 +76,6 @@ class SimulationCoordinator
 
   def select_sample(sample_size)
     @citizen_repository.sample(sample_size)
-  end
-
-  def run_one_simulation_for_each_sample
-    increment_size.step(@specification.population_size, increment_size) do |sample_size|
-      citizen_sample = select_sample(sample_size)
-      run_one_simulation(citizen_sample, sample_size)
-    end
-  end
-
-  def run_one_simulation(citizen_sample, sample_size)
-    election_coordinator = ElectionCoordinator.new(citizen_sample, @specification.voting_method)
-    store_simulation_result(election_coordinator, sample_size)
   end
 
   def store_simulation_result(election_coordinator, sample_size)

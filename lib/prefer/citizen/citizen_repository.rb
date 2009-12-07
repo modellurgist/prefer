@@ -21,6 +21,10 @@ class CitizenRepository
     retrieve_sample_without_duplicates(size)
   end
 
+  def empty?
+    @citizens.empty?
+  end
+
   # private
 
   def retrieve_sample_without_duplicates(size)
