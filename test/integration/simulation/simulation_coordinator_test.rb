@@ -25,11 +25,16 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
             setup do
               @coordinator.perform_simulation_analyses
             end
-            test "each result's comparison records should not be empty" do
-              assert @results.find_all_repetitions_for_all_sizes.all? {|sample_size,record| !record.comparison_records.empty?}
-            end
-            test "each result should have a vote percent comparison that is not nil" do
-              assert @results.find_all_repetitions_for_all_sizes.all? {|sample_size,record| record.comparison_records.all? {|key,comparison| comparison != nil}}
+            context "and all repetitions for all sizes are collected" do
+              setup do
+                @repetitions = @results.find_all_repetitions_for_all_sizes
+              end
+              test "each result's comparison records should not be empty" do
+                assert @repetitions.all? {|record| !record.comparison_records.empty?}
+              end
+              test "each result should have a vote percent comparison that is not nil" do
+                assert @repetitions.all? {|record| record.comparison_records.all? {|key,comparison| comparison != nil}}
+              end
             end
           end
         end
@@ -53,6 +58,10 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
           test "there should be 3 records for sample size 5" do
             repetitions = @results.find_all_repetitions_for_size(5)
             assert_equal 3, repetitions.size
+          end
+          test "there should be an election record for the first record for sample size 5" do
+            repetition = @results.find_any_repetition_for_size(5)
+            assert_not_nil repetition.election_record
           end
         end
       end

@@ -77,7 +77,8 @@ class SimulationCoordinator
 
   def run_multiple_elections(sample_size, repetitions)
     repetitions.times do
-      run_one_election(sample_size)
+      #run_one_election(sample_size)
+      run_one_sample_election(sample_size)
     end
   end
 
@@ -111,8 +112,8 @@ class SimulationCoordinator
     add_to_results_for_sample_size(record, sample_size)
   end
 
-  def add_to_results_for_sample_size(election_record, sample_size)
-    @results.store_repetition_for_size(election_record, sample_size)
+  def add_to_results_for_sample_size(record, sample_size)
+    @results.store_repetition_for_size(record, sample_size)
   end
 
   def add_to_results_for_population_size(record)
