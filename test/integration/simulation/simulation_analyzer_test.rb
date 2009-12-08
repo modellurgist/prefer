@@ -20,7 +20,7 @@ class SimulationAnalyzerTest < Test::Unit::TestCase
       context "a new analyzer initialized with a null set of results and a valid record for full population is selected from the results" do
         setup do
           #@analyzer = SimulationAnalyzer.new({})
-          @record= @results[10]
+          @record = @results.find_any_repetition_for_size(10)
           @population_winner = @record.winning_alternative
           @population_vote_percent_for_alternative = @record.analysis_records[:vote_percent][@population_winner]
         end

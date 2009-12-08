@@ -3,8 +3,6 @@ require 'lib/prefer/simulation/sample_repetition_repository'
 
 class SampleRepository
 
-  attr_reader :sample_map # this should only be used during informal testing, then removed
-
   def initialize
     @sample_map = Hash.new
   end
@@ -23,6 +21,10 @@ class SampleRepository
     @population_record = record
   end
 
+  def retrieve_population_record
+    @population_record
+  end
+
   def store_repetition_for_size(record, sample_size)
     unless (has_sample_size?(sample_size))
       new_sample_size(sample_size)
@@ -32,7 +34,8 @@ class SampleRepository
   end
 
   def find_all_repetitions_for_size(sample_size)
-
+    repetition_repo = retrieve_repetition_repository(sample_size)
+    repetition_repo.find_all_as_unindexed
   end
 
   def find_any_repetition_for_size(sample_size)

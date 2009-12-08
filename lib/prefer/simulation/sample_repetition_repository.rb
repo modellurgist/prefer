@@ -15,6 +15,10 @@ class SampleRepetitionRepository
     @repetition_count = @repetition_count.next
   end
 
+  def find_all_as_unindexed
+    @repetition_map.values
+  end
+
   def find_any_repetition
     first_repetition
   end
