@@ -11,14 +11,14 @@ class RangeRunner < SimulationRunner
   end
 
   # called by SimulationsController
-  def run_with_hash_parameters(specifications, export_on = false)
+  def run_with_hash_parameters(specifications, export_on = false)  # DEPRECATED !
     simulation_coordinator = build_simulation_coordinator(specifications)
     simulation_coordinator.run_one_election_for_each_in_sample_size_range
     post_run_tasks(simulation_coordinator, export_on)
   end
 
   def improved_run_with_hash_parameters(specifications, export_on = false)
-    simulation_coordinator = build_simulation_coordinator(specifications)
+    simulation_coordinator = build_simulation_coordinator(specifications) # change to use simulation
     simulation_coordinator.run_multiple_elections_for_each_in_sample_size_range
     post_run_tasks(simulation_coordinator, export_on)
   end

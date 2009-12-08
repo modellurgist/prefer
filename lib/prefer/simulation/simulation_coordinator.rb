@@ -24,9 +24,20 @@ class SimulationCoordinator
   #  run_one_election_for_each_in_sample_size_range
   #end
 
-  def run_one_election_for_each_in_sample_size_range
+  def run_one_election_for_each_in_sample_size_range   # DEPRECATED !
     pre_simulation_tasks
     increment_size.step((@specification.population_size - 1), increment_size) do |sample_size|
+      run_one_sample_election(sample_size)
+    end
+    run_population_election(@specification.population_size)
+    post_simulation_tasks
+  end
+
+  def run_multiple_elections_for_each_in_sample_size_range
+    pre_simulation_tasks
+    minimum = @specification.sample_size_minimum
+    maximum = @specification.sample_size_maximum
+    increment_size.step(minimum, maximum) do |sample_size|
       run_one_sample_election(sample_size)
     end
     run_population_election(@specification.population_size)
