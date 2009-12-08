@@ -28,11 +28,11 @@ class ReportWriter
   end
 
   def results_iterator(results)
-    repetitions_hash = results.generate_hash_of_all_repetitions_with_each_indexed_by_sample_size
+    repetitions_hash = results.generate_hash_of_collected_repetitions_by_sample_size
     sorted_results = repetitions_hash.sort
-    sorted_keys = sorted_results.collect {|pair| pair.first}
-    sorted_values = sorted_results.collect {|pair| pair.last}
-    SyncEnumerator.new(sorted_keys, sorted_values)
+    sorted_sizes = sorted_results.collect {|pair| pair.first}
+    sorted_collections = sorted_results.collect {|pair| pair.last}
+    SyncEnumerator.new(sorted_sizes, sorted_collections)
   end
  
   def create_file
@@ -103,17 +103,21 @@ class ReportWriter
     population_sample_record = results.retrieve_population_record
     population_winner = population_sample_record.winning_alternative 
     write_analysis_header
-    results_iterator.each do |sample_size,record| 
-      self.puts "#{sample_size},#{record.analysis_records[:vote_percent][population_winner]}" 
+    results_iterator.each do |sample_size, collection|
+      collection.each do |record|
+        self.puts "#{sample_size},#{record.analysis_records[:vote_percent][population_winner]}"
+      end
     end
   end
 
   def report_elections(results_iterator)
-    results_iterator.each do |sample_size,result|
-      write_election_header(sample_size)
-      election_record = result.election_record
-      report_social_profile(election_record)
-      report_citizen_profiles(election_record)
+    results_iterator.each do |sample_size, collection|
+      collection.each do |record|
+        write_election_header(sample_size)
+        election_record = record.election_record
+        report_social_profile(election_record)
+        report_citizen_profiles(election_record)
+      end
     end
   end
 

@@ -49,11 +49,12 @@ class SampleRepository
     collection.flatten
   end
 
-  def generate_hash_of_all_repetitions_with_each_indexed_by_sample_size
-    sizes = find_all_sample_sizes
+  # should probably map a size to a collection of record objects (to avoid duplicate keys)
+  def generate_hash_of_collected_repetitions_by_sample_size
     return_value = Hash.new
-    sizes.each do |sample_size|
-      find_all_repetitions_for_size(sample_size).each {|repetition| return_value[sample_size] = repetition}
+    find_all_sample_sizes.each do |sample_size|
+      repetitions = find_all_repetitions_for_size(sample_size)
+      return_value[sample_size] = repetitions
     end
     return_value
   end

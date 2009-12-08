@@ -24,31 +24,29 @@ class SimulationCoordinator
   #  run_one_election_for_each_in_sample_size_range
   #end
 
-  def run_one_election_for_each_in_sample_size_range   # DEPRECATED !
-    pre_simulation_tasks
-    increment_size.step((@specification.population_size - 1), increment_size) do |sample_size|
-      run_one_sample_election(sample_size)
-    end
-    run_population_election(@specification.population_size)
-    post_simulation_tasks
-  end
+  #def run_one_election_for_each_in_sample_size_range   # DEPRECATED !
+  #  pre_simulation_tasks
+  #  increment_size.step((@specification.population_size - 1), increment_size) do |sample_size|
+  #    run_one_sample_election(sample_size)
+  #  end
+  #  run_population_election(@specification.population_size)
+  #  post_simulation_tasks
+  #end
 
   def run_multiple_elections_for_each_in_sample_size_range
     pre_simulation_tasks
-    minimum = @specification.sample_size_minimum
-    maximum = @specification.sample_size_maximum
-    increment_size.step(minimum, maximum) do |sample_size|
-      run_one_sample_election(sample_size)
+    minimum_size.step(approved_maximum, increment_size) do |sample_size|
+      run_multiple_elections(sample_size, number_repetitions)
     end
     run_population_election(@specification.population_size)
     post_simulation_tasks
   end
 
+  # DEPRECATED or USEFUL?
   def run_multiple_elections_for_one_sample_size
     pre_simulation_tasks
     sample_size = @specification.sample_size
-    repetitions = @specification.repetitions
-    run_multiple_elections(sample_size, repetitions)
+    run_multiple_elections(sample_size, number_repetitions)
     run_population_election(@specification.population_size)
     post_simulation_tasks
   end
@@ -70,6 +68,23 @@ class SimulationCoordinator
 
 
   #private
+
+  def number_repetitions
+    @specification.repetitions
+  end
+
+  def minimum_size 
+    @specification.sample_size_minimum
+  end
+
+  def maximum_size
+    @specification.sample_size_maximum
+  end
+
+  def approved_maximum
+    highest_allowed_maximum = @specification.population_size - 1
+    [highest_allowed_maximum, maximum_size].min
+  end
 
   def run_one_sample_election(sample_size)
     election_coordinator = run_one_election(sample_size)
