@@ -4,20 +4,32 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :sample_size_increment %><br />
-    <%= f.text_field :sample_size_increment %>
-  </p>
-  <p>
-    <%= f.label :population_size %><br />
-    <%= f.text_field :population_size %>
+    <%= f.label :simulation_type %><br />
+    <%= f.text_field :mode %>
   </p>
   <p>
     <%= f.label :voting_method %><br />
     <%= f.text_field :voting_method %>
   </p>
   <p>
-    <%= f.label :mode %><br />
-    <%= f.text_field :mode %>
+    <%= f.label :population_size %><br />
+    <%= f.text_field :population_size %>
+  </p>
+  <p>
+    <%= f.label :number_of_repetitions %><br />
+    <%= f.text_field :repetitions %>
+  </p>
+  <p>
+    <%= f.label :sample_size_minimum %><br />
+    <%= f.text_field :sample_size_minimum %>
+  </p>
+  <p>
+    <%= f.label :sample_size_maximum %><br />
+    <%= f.text_field :sample_size_maximum %>
+  </p>
+  <p>
+    <%= f.label :size_of_each_step_in_sample_size_range %><br />
+    <%= f.text_field :sample_size_increment %>
   </p>
   <p>
     <%= f.collection_select(:alternatives_set_id, AlternativesSet.all, :id, :description) %>

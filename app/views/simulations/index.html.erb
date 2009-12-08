@@ -7,10 +7,13 @@
 
 <table>
   <tr>
-    <th>Sample size increment</th>
-    <th>Population size</th>
-    <th>Voting method</th>
     <th>Mode</th>
+    <th>Voting method</th>
+    <th>Population size</th>
+    <th>Number of Repetitions</th>
+    <th>Minimum of Sample Size Range</th>
+    <th>Maximum of Sample Size Range</th>
+    <th>Size of Each Step in Sample Size Range </th>
     <th>Alternatives Set</th>
     <th class="link"></th>
     <th class="link"></th>
@@ -19,10 +22,13 @@
   <tbody>
 <% @simulations.each do |simulation| %>
   <tr>
-    <td><%=h simulation.sample_size_increment %></td>
-    <td><%=h simulation.population_size %></td>
-    <td><%=h simulation.voting_method %></td>
     <td><%=h simulation.mode %></td>
+    <td><%=h simulation.voting_method %></td>
+    <td><%=h simulation.population_size %></td>
+    <td><%=h simulation.repetitions %></td>
+    <td><%=h simulation.sample_size_minimum %></td>
+    <td><%=h simulation.sample_size_maximum %></td>
+    <td><%=h simulation.sample_size_increment %></td>
     <td><%=h simulation.alternatives_set_name %></td>
     <td class="link"><%= link_to 'Run', run_simulation_path(simulation) %></td>
     <td class="link"><%= link_to 'Delete', simulation, :confirm => 'Are you sure?', :method => :delete %></td>

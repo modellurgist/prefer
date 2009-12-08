@@ -19,6 +19,10 @@ class Simulation < ActiveRecord::Base
     @report_string = runner.run_with_hash_parameters(specifications, EXPORT_ON)
   end
 
+  def available_simulation_modes
+    {"RangeRunner" => "RangeRunner"}
+  end
+
   # private
 
   def build_specifications_hash
