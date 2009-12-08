@@ -99,7 +99,7 @@ class ReportWriter
   end
 
   def report_analyses(results_iterator, results)
-    population_sample_record = results[results.keys.max]
+    population_sample_record = results[:population_result_record]
     population_winner = population_sample_record.winning_alternative 
     write_analysis_header
     results_iterator.each do |sample_size,record| 

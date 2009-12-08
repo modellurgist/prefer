@@ -4,12 +4,14 @@ require 'fastercsv'
 class SimulationResultRecord
 
   attr_reader :election_record
+  attr_reader :election_records
   attr_reader :analysis_records
   attr_reader :comparison_records
   attr_accessor :specifications
 
   def initialize
     @election_record = Hash.new
+    @election_records = Hash.new
     @analysis_records = Hash.new
     @comparison_records = Hash.new
   end
@@ -19,7 +21,7 @@ class SimulationResultRecord
   end
 
   def record_election(record_hash)
-    @election_record = record_hash
+    @election_record = record_hash # deprecate, to use collection
   end
 
   def record_analysis(analysis_symbol, analysis_hash)

@@ -4,10 +4,45 @@ require 'lib/prefer/simulation/simulation_coordinator'
 
 class SimulationCoordinatorTest < Test::Unit::TestCase
 
+
+  context "a new simulation coordinator" do
+    context "initialized with no specification" do
+      setup do
+        @coordinator = SimulationCoordinator.new(@specification)
+      end
+      context "when a new election result record is added to the results" do
+        setup do
+          record = SimulationResultRecord.new
+          sample_size = 2
+          @coordinator.add_to_results_for_sample_size(record, sample_size)
+        end
+        context "and the coordinator results are examined" do
+          setup do
+            @results = @coordinator.results
+          end 
+          test "the object in results with a key 2 should not be a Hash" do
+            object = @results[2]
+            assert_equal false, (object.class == Hash)
+          end
+          test "the object in results with a key 2 should be an Array" do
+            object = @results[2]
+            assert_respond_to object, :pop
+          end
+          test "when the object in results at key 2 is accessed as an array at position 0" do
+            repetitions = @results[2]
+            record = repetitions[0]
+            assert (record.class == SimulationResultRecord)
+          end
+
+        end
+      end
+    end
+  end
+
   context "a new simulation coordinator" do
     context "initialized with complete, valid specification for 3 alternatives, 10 citizens, step size 1, plurality vote" do
       setup do 
-        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1} 
+        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1, :repetitions => 1}
         @specification = SimulationSpecification.new(parameters)
         @coordinator = SimulationCoordinator.new(@specification)
       end
@@ -26,10 +61,12 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
           assert_respond_to @coordinator.collected_profiles, :each
         end
       end
-      context "when it receives the request to run" do
+      context "when it receives the request to run_one_election_for_each_in_sample_size_range" do
         setup do
-          @coordinator.run
+          @coordinator.run_one_election_for_each_in_sample_size_range
           @results = @coordinator.results
+        end
+        teardown do
         end
         test "should create the citizens" do 
           assert_equal 10, @coordinator.citizens.size
@@ -86,7 +123,7 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
     end
     context "initialized with complete, valid specification for 3 alternatives, 1 citizens, step size 1, plurality vote" do
       setup do 
-        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1} 
+        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1, :repetitions => 1}
         @specification = SimulationSpecification.new(parameters)
         @coordinator = SimulationCoordinator.new(@specification)
       end

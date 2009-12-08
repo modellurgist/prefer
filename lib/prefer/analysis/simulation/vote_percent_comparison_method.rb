@@ -21,9 +21,15 @@ class VotePercentComparisonMethod
   
 
   def compare_vote_percent_for_each_sample(alternative)
-    @records.each_value do |record|
-      sample_deviation = compare_vote_percent_for_sample(record, alternative)
-      record.record_comparison(:vote_percent, alternative, sample_deviation)
+    all_keys = @records.keys
+    integer_keys = all_keys.find_all {|key| key.class == Integer}
+    integer_keys.each do |sample_size|
+      sample_size.each do |sample_repetitions|
+        sample_repetitions.each do |repetition_record|
+          sample_deviation = compare_vote_percent_for_sample(repetition_record, alternative)
+          repetition_record.record_comparison(:vote_percent, alternative, sample_deviation)
+        end
+      end
     end
   end
   
@@ -35,7 +41,6 @@ class VotePercentComparisonMethod
     #analysis_records_for_sample = record.analysis_records
     #vote_percent_values = analysis_records_for_sample[:vote_percent]
     #vote_percent_values[alternative]
-    
     sample_vote_percent_values = record.analysis_records[:vote_percent]
     sample_vote_percent_values[alternative]
   end
@@ -45,7 +50,7 @@ class VotePercentComparisonMethod
   end
 
   def population_sample_record 
-    @records[full_population_size]
+    @records[:population_result_record]
   end
 
   def population_vote_percent_for(alternative)

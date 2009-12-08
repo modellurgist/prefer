@@ -4,11 +4,13 @@ require 'lib/prefer/voting/voting_method_factory'
 
 class SimulationAnalyzer
 
-  attr_reader :records
-
   def initialize(results)
-    if (@records = results).nil? then throw :null_parameter 
+    if (@sample_repository = results).nil? then throw :null_parameter
     end
+  end
+
+  def results
+    @sample_repository
   end
 
   def perform_simulation_analyses
@@ -19,13 +21,8 @@ class SimulationAnalyzer
 
   # private 
 
-  def simulation_analysis_methods(voting_method)
-    simulation_analysis_factory = SimulationAnalysisFactory.new
-    methods = Array.new
-    voting_method.compatible_simulation_analyses.each do |analysis_method|
-      methods << simulation_analysis_factory.build(analysis_method) 
-    end
-    methods 
+  def extract_specifications
+    @sample_repository.simulation_specifications
   end
 
   def retrieve_voting_method(specifications)
@@ -34,9 +31,13 @@ class SimulationAnalyzer
     voting_method_factory.build(voting_method_name)
   end
 
-  def extract_specifications
-    a_record = @records.find {|sample_size,record| sample_size > 0}
-    a_record[1].specifications 
+  def simulation_analysis_methods(voting_method)
+    simulation_analysis_factory = SimulationAnalysisFactory.new
+    methods = Array.new
+    voting_method.compatible_simulation_analyses.each do |analysis_method|
+      methods << simulation_analysis_factory.build(analysis_method)
+    end
+    methods
   end
 
 end
