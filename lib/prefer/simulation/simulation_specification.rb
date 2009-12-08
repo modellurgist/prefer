@@ -5,8 +5,9 @@ class SimulationSpecification
               :repetitions, :sample_size_minimum, :sample_size_maximum,
               :sample_size  # deprecated !
 
-  def initialize(parameters)  # TO-DO: rewrite to use only simulation properties instead of hash? OR convert to hash first
+  def initialize(parameters) 
     @specifications = convert_parameter_keys_to_symbols(parameters)
+    remove_unnecessary_parameters
     if    (@alternatives = @specifications[:alternatives]).nil? then throw :null_parameter
     elsif (@population_size = @specifications[:population_size]).nil? then throw :null_parameter
     #elsif (@increment_type = @specifications[:increment_type]).nil? then throw :null_parameter
@@ -21,6 +22,11 @@ class SimulationSpecification
 
   # private
 
+  def remove_unnecessary_parameters
+    @specifications.delete(:updated_at)
+    @specifications.delete(:created_at)
+  end
+
   def convert_parameter_keys_to_symbols(parameters)
     converted_parameters = Hash.new
     parameters.each do |key, value|
@@ -29,7 +35,7 @@ class SimulationSpecification
     converted_parameters
   end
 
-  def set_optional_parameters(parameters)
+  def set_optional_parameters(parameters)  # DEPRECATED !
     unless parameters[:sample_size].nil? then @sample_size = parameters[:sample_size]
     end # deprecated !!
   end

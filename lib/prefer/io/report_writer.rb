@@ -28,7 +28,8 @@ class ReportWriter
   end
 
   def results_iterator(results)
-    sorted_results = results.sort
+    repetitions_hash = results.generate_hash_of_all_repetitions_with_each_indexed_by_sample_size
+    sorted_results = repetitions_hash.sort
     sorted_keys = sorted_results.collect {|pair| pair.first}
     sorted_values = sorted_results.collect {|pair| pair.last}
     SyncEnumerator.new(sorted_keys, sorted_values)
@@ -99,7 +100,7 @@ class ReportWriter
   end
 
   def report_analyses(results_iterator, results)
-    population_sample_record = results[:population_result_record]
+    population_sample_record = results.retrieve_population_record
     population_winner = population_sample_record.winning_alternative 
     write_analysis_header
     results_iterator.each do |sample_size,record| 

@@ -49,6 +49,15 @@ class SampleRepository
     collection.flatten
   end
 
+  def generate_hash_of_all_repetitions_with_each_indexed_by_sample_size
+    sizes = find_all_sample_sizes
+    return_value = Hash.new
+    sizes.each do |sample_size|
+      find_all_repetitions_for_size(sample_size).each {|repetition| return_value[sample_size] = repetition}
+    end
+    return_value
+  end
+
   def find_all_repetitions_for_size(sample_size)
     repetition_repo = retrieve_repetition_repository(sample_size)
     repetition_repo.find_all_as_unindexed
@@ -67,6 +76,7 @@ class SampleRepository
   def find_all_sample_sizes
     @sample_map.keys
   end
+
 
   # private
 
