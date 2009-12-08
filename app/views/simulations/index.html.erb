@@ -7,13 +7,13 @@
 
 <table>
   <tr>
-    <th>Mode</th>
+    <th>Simulation Type</th>
     <th>Voting method</th>
     <th>Population size</th>
-    <th>Number of Repetitions</th>
-    <th>Minimum of Sample Size Range</th>
-    <th>Maximum of Sample Size Range</th>
-    <th>Size of Each Step in Sample Size Range </th>
+    <th>Number of Repetitions Per Sample Size</th>
+    <th>Minimum Sample Size</th>
+    <th>Maximum Sample Size</th>
+    <th>Size of Interval Between Sample Sizes</th>
     <th>Alternatives Set</th>
     <th class="link"></th>
     <th class="link"></th>
@@ -22,7 +22,8 @@
   <tbody>
 <% @simulations.each do |simulation| %>
   <tr>
-    <td><%=h simulation.mode %></td>
+    <td><% inverted_modes = simulation.modes.invert %>
+        <%=h inverted_modes[simulation.mode] %></td>
     <td><%=h simulation.voting_method %></td>
     <td><%=h simulation.population_size %></td>
     <td><%=h simulation.repetitions %></td>

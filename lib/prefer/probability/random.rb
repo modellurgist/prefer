@@ -7,4 +7,8 @@ class Random
     rand(highest_integer)
   end
 
+  # private
+
+
+
 end

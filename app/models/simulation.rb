@@ -21,10 +21,21 @@ class Simulation < ActiveRecord::Base
   end
 
   def available_simulation_modes
-    {"RangeRunner" => "RangeRunner"}
+    modes.sort
+  end
+
+  def available_voting_methods
+    methods = {"Plurality" => "plurality",
+               "Instant Runoff Vote" => "irv"
+              }
+    methods.sort
   end
 
   # private
+
+  def modes
+    {"Define a range of sample sizes. For each constant step within it, run one election for each repetition" => "RangeRunner"}
+  end
 
   def build_specifications_hash_from_simulation
     simulation_attributes = self.attributes

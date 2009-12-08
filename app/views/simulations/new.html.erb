@@ -5,18 +5,18 @@
 
   <p>
     <%= f.label :simulation_type %><br />
-    <%= f.text_field :mode %>
+    <%= f.select(:mode, @simulation.available_simulation_modes) %>
   </p>
   <p>
     <%= f.label :voting_method %><br />
-    <%= f.text_field :voting_method %>
+    <%= f.select(:voting_method, @simulation.available_voting_methods) %>
   </p>
   <p>
     <%= f.label :population_size %><br />
     <%= f.text_field :population_size %>
   </p>
   <p>
-    <%= f.label :number_of_repetitions %><br />
+    <%= f.label :number_of_repetitions_per_sample_size %><br />
     <%= f.text_field :repetitions %>
   </p>
   <p>
@@ -32,6 +32,7 @@
     <%= f.text_field :sample_size_increment %>
   </p>
   <p>
+    <%= f.label :set_of_alternatives %><br />
     <%= f.collection_select(:alternatives_set_id, AlternativesSet.all, :id, :description) %>
   </p>
   <p>
