@@ -21,6 +21,10 @@ class SampleRepository
     @population_record = record
   end
 
+  def population_size
+    @population_record.population_size
+  end
+
   def retrieve_population_record
     @population_record
   end
@@ -31,6 +35,14 @@ class SampleRepository
     end
     repetition_repo = retrieve_repetition_repository(sample_size)
     repetition_repo.store_repetition(record)
+  end
+
+  def find_all_repetitions_for_all_sizes
+    repetition_repos = @sample_map.values
+    collection = repetition_repos.collect do |repetition_repo|
+                   repetition_repo.find_all_as_unindexed
+                 end
+    collection.flatten
   end
 
   def find_all_repetitions_for_size(sample_size)

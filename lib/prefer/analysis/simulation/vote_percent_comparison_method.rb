@@ -2,7 +2,7 @@
 class VotePercentComparisonMethod
  
   def initialize_results(results)
-    if (@records = results).nil? then throw :null_parameter 
+    if (@sample_repository = results).nil? then throw :null_parameter
     end
   end
 
@@ -21,9 +21,9 @@ class VotePercentComparisonMethod
   
 
   def compare_vote_percent_for_each_sample(alternative)
-    sample_sizes = @records.find_all_sample_sizes
+    sample_sizes = @sample_repository.find_all_sample_sizes
     sample_sizes.each do |sample_size|
-      repetitions = @records.find_all_repetitions_for_size(sample_size)
+      repetitions = @sample_repository.find_all_repetitions_for_size(sample_size)
       repetitions.each do |repetition_record|
         sample_deviation = compare_vote_percent_for_sample(repetition_record, alternative)
         repetition_record.record_comparison(:vote_percent, alternative, sample_deviation)
@@ -44,11 +44,11 @@ class VotePercentComparisonMethod
   end
 
   def full_population_size
-    @records.keys.max  
+    @sample_repository.population_size
   end
 
   def population_sample_record 
-    @records.retrieve_population_record
+    @sample_repository.retrieve_population_record
   end
 
   def population_vote_percent_for(alternative)

@@ -21,17 +21,16 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
             @results = @coordinator.results
           end 
           test "the object in results with a key 2 should not be a Hash" do
-            object = @results[2]
+            object = @results.find_all_repetitions_for_size(2)
             assert_equal false, (object.class == Hash)
           end
           test "the object in results with a key 2 should be an Array" do
-            object = @results[2]
+            object = @results.find_all_repetitions_for_size(2)
             assert_respond_to object, :pop
           end
           test "when the object in results at key 2 is accessed as an array at position 0" do
-            repetitions = @results[2]
-            record = repetitions[0]
-            assert (record.class == SimulationResultRecord)
+            object = @results.find_any_repetition_for_size(2)
+            assert_equal object.class, SimulationResultRecord
           end
 
         end
@@ -66,36 +65,37 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
           @coordinator.run_one_election_for_each_in_sample_size_range
           @results = @coordinator.results
         end
-        teardown do
-        end
         test "should create the citizens" do 
           assert_equal 10, @coordinator.citizens.size
         end
         context "and the results are examined" do
+          setup do
+            @all_records = @results.find_all_repetitions_for_all_sizes
+          end
           test "should hold at least one election with the full population" do
-            result_full_sample = @results[10]
+            result_full_sample = @results.retrieve_population_record
             assert_not_nil result_full_sample.election_record[:social_profile] 
           end
           test "should hold at least the election at the first increment past zero sample size" do
-            result_first_sample = @results[1]
+            result_first_sample = @results.find_any_repetition_for_size(1)
             assert_not_nil result_first_sample.election_record[:social_profile] 
           end
           test "should only hold the election for the fourth sample size among citizens that number exactly that size" do
-            result_fourth_sample = @results[4]
+            result_fourth_sample = @results.find_any_repetition_for_size(4)
             assert_equal 4, result_fourth_sample.election_record[:citizen_sample].size
           end
           test "each result's comparison records should not be nil" do
-            assert @results.all? {|sample_size,record| record.comparison_records != nil}
+            assert @all_records.all? {|record| record.comparison_records != nil}
           end
           context "and it receives the request to perform sample comparisons" do
             setup do
               @coordinator.perform_simulation_analyses
             end
             test "each result's comparison records should not be empty" do
-              assert @results.all? {|sample_size,record| !record.comparison_records.empty?}
+              assert @all_records.all? {|record| !record.comparison_records.empty?}
             end
             test "each result should have a vote percent comparison that is not nil" do
-              assert @results.all? {|sample_size,record| record.comparison_records.all? {|key,comparison| comparison != nil}} 
+              assert @all_records.all? {|record| record.comparison_records.all? {|key,comparison| comparison != nil}}
             end
           end
         end

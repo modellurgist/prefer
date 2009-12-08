@@ -20,6 +20,10 @@ class SimulationResultRecord
     @election_record[:social_profile][0]
   end
 
+  def population_size
+    @specifications[:population_size]
+  end
+
   def record_election(record_hash)
     @election_record = record_hash # deprecate, to use collection
   end
