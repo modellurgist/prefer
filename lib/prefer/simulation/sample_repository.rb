@@ -7,6 +7,10 @@ class SampleRepository
     @sample_map = Hash.new
   end
 
+  def empty?
+    sample_count == 0
+  end
+
   def sample_count
     @sample_map.size
   end
@@ -56,7 +60,7 @@ class SampleRepository
   end
 
   def simulation_specifications
-    record = find_any_repetition
+    record = retrieve_population_record
     record.specifications
   end
 

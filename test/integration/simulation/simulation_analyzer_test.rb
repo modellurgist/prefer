@@ -20,7 +20,7 @@ class SimulationAnalyzerTest < Test::Unit::TestCase
       context "a new analyzer initialized with a null set of results and a valid record for full population is selected from the results" do
         setup do
           #@analyzer = SimulationAnalyzer.new({})
-          @record = @results.find_any_repetition_for_size(10)
+          @record = @results.retrieve_population_record
           @population_winner = @record.winning_alternative
           @population_vote_percent_for_alternative = @record.analysis_records[:vote_percent][@population_winner]
         end
@@ -34,7 +34,7 @@ class SimulationAnalyzerTest < Test::Unit::TestCase
       context "a new analyzer initialized with the full set of results" do
         setup do
           @second_analyzer = SimulationAnalyzer.new(@results)
-          @record= @results[10]
+          @record = @results.retrieve_population_record
           @population_winner = @record.winning_alternative
           #@population_vote_percent_for_alternative = @record.analysis_records[:vote_percent][@alternative]
         end
@@ -42,10 +42,10 @@ class SimulationAnalyzerTest < Test::Unit::TestCase
           assert_not_nil @results
         end
         test "its records should not be null" do
-          assert_not_nil @second_analyzer.records
+          assert_not_nil @second_analyzer.results
         end
-        test "its records should not be empty" do
-          assert !@second_analyzer.records.empty?
+        test "its results should not be empty" do
+          assert !@second_analyzer.results.empty?
         end
         #test "the sample vote percent for winning alternative should not be nil" do
         #  assert_not_nil @second_analyzer.sample_vote_percent_for(@record, @population_winner) 

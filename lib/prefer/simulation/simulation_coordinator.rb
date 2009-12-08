@@ -38,14 +38,16 @@ class SimulationCoordinator
     sample_size = @specification.sample_size
     repetitions = @specification.repetitions
     run_multiple_elections(sample_size, repetitions)
+    run_population_election(@specification.population_size)
     post_simulation_tasks
   end
 
-  def run_one_election_with_new_sample(sample_size)
-    pre_simulation_tasks
-    run_one_sample_election(sample_size)
-    post_simulation_tasks
-  end
+  #def run_one_election_with_new_sample(sample_size)
+  #  pre_simulation_tasks
+  #  run_one_sample_election(sample_size)
+  #  run_population_election(@specification.population_size)
+  #  post_simulation_tasks
+  #end
 
   #def export_one_analysis_to_csv(analysis_symbol, alternative)
   #  string = String.new

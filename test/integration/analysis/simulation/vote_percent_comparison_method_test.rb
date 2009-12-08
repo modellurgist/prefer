@@ -36,7 +36,7 @@ class VotePercentComparisonMethodTest < Test::Unit::TestCase
         setup do
           @second_analyzer = VotePercentComparisonMethod.new
           @second_analyzer.initialize_results(@results)
-          @record= @results[10]
+          @record = @results.retrieve_population_record
           @population_winner = @record.winning_alternative
           #@population_vote_percent_for_alternative = @record.analysis_records[:vote_percent][@alternative]
         end

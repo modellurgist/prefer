@@ -18,7 +18,7 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
         end
         context "and the results are examined" do
           test "should hold at least one election with the full population" do
-            result_full_sample = @results[10]
+            result_full_sample = @results.retrieve_population_record
             assert_not_nil result_full_sample.election_record[:social_profile] 
           end
           context "and it receives the request to perform sample comparisons" do
@@ -26,10 +26,10 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
               @coordinator.perform_simulation_analyses
             end
             test "each result's comparison records should not be empty" do
-              assert @results.all? {|sample_size,record| !record.comparison_records.empty?}
+              assert @results.find_all_repetitions_for_all_sizes.all? {|sample_size,record| !record.comparison_records.empty?}
             end
             test "each result should have a vote percent comparison that is not nil" do
-              assert @results.all? {|sample_size,record| record.comparison_records.all? {|key,comparison| comparison != nil}} 
+              assert @results.find_all_repetitions_for_all_sizes.all? {|sample_size,record| record.comparison_records.all? {|key,comparison| comparison != nil}}
             end
           end
         end
@@ -38,7 +38,7 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
   end
 
   context "a new simulation coordinator" do
-    context "initialized with complete, valid specification for 3 alternatives, 10 citizens, sample size 5, repetitions 3, and IRV vote" do
+    context "initialized with complete, valid specification for multiple elections for one sample size on 3 alternatives, 10 citizens, sample size 5, repetitions 3, and IRV vote" do
       setup do
         parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :irv, :sample_size => 5, :repetitions => 3}
         @specification = SimulationSpecification.new(parameters)
@@ -51,7 +51,7 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
         end
         context "and the results are examined" do
           test "there should be 3 records for sample size 5" do
-            repetitions = @results[5]
+            repetitions = @results.find_all_repetitions_for_size(5)
             assert_equal 3, repetitions.size
           end
         end
