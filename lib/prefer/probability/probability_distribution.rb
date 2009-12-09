@@ -10,6 +10,10 @@ class ProbabilityDistribution
     @distribution.values
   end
 
+  def number_unique_classes
+    identify_unique_classes.size
+  end
+
   # private
 
   def build_distribution

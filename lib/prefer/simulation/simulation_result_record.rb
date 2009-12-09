@@ -4,14 +4,14 @@ require 'fastercsv'
 class SimulationResultRecord
 
   attr_reader :election_record
-  attr_reader :election_records
+  #attr_reader :election_records
   attr_reader :analysis_records
   attr_reader :comparison_records
   attr_accessor :specifications
 
   def initialize
     @election_record = Hash.new
-    @election_records = Hash.new
+    #@election_records = Hash.new
     @analysis_records = Hash.new
     @comparison_records = Hash.new
   end
@@ -22,6 +22,14 @@ class SimulationResultRecord
 
   def population_size
     @specifications[:population_size]
+  end
+
+  def number_alternatives
+    specifications[:alternatives].size
+  end
+
+  def ballots
+    election_record[:ballots]
   end
 
   def record_election(record_hash)

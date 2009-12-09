@@ -65,11 +65,16 @@ class ReportWriter
   end
 
   def report_specification
+    results = get_results
     triple_space
     self.puts "Defining Specifications"
     double_space
     self.puts nested_collection_to_csv_line(@specification.specifications.keys)
     self.puts nested_collection_to_csv_line(@specification.specifications.values)
+    double_space
+    self.puts "Probability Distribution of Preference Profiles"
+    self.puts "entropy(distribution) = #{results.entropy_of_actual_preference_distribution} bits"
+    self.puts "entropy(uniform_distribution) = #{results.entropy_of_uniform_distribution} bits"
   end
 
   def nested_collection_to_csv_line(nested_collection)
@@ -139,8 +144,8 @@ class ReportWriter
     double_space
     self.puts "Profiles of Citizens in Sample (left-most is highest-ranked alternative)"
     double_space
-    election_record[:citizen_sample].each do |citizen|
-      self.puts simple_collection_to_csv_line(citizen.profile)
+    election_record[:ballots].each do |ballot|
+      self.puts simple_collection_to_csv_line(ballot)
     end
   end
 

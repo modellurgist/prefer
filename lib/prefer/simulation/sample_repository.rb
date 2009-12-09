@@ -1,10 +1,13 @@
 
 require 'lib/prefer/simulation/sample_repetition_repository'
+require 'lib/prefer/probability/probability_distribution'
+require 'lib/prefer/probability/distribution_analyzer'
 
 class SampleRepository
 
   def initialize
     @sample_map = Hash.new
+    @distribution_analyzer = DistributionAnalyzer.new
   end
 
   def empty?
@@ -78,6 +81,29 @@ class SampleRepository
     @sample_map.keys
   end
 
+  # Analyses to factor out into separate object
+
+  #def entropy_of_actual_preference_distribution
+  #  repetition = find_any_repetition
+  #  subrecord = repetition.election_record
+  #  @preference_profiles = subrecord.ballots
+  #  distribution = ProbabilityDistribution.new(@preference_profiles)
+  #  analyzer = DistributionAnalyzer.new
+  #  analyzer.entropy(distribution)
+  #end
+
+  def entropy_of_actual_preference_distribution
+    @preference_profiles = @population_record.ballots
+    distribution = ProbabilityDistribution.new(@preference_profiles)
+    @distribution_analyzer.entropy(distribution)
+  end
+
+  # This SHOULD USE MAX POSSIBLE NUMBER OF PERMUTATIONS OF ALTERNATIVES (not actual number, since some might be unassigned)
+  def entropy_of_uniform_distribution
+    number_alternatives = @population_record.number_alternatives
+    number_permutations = (2..number_alternatives).inject(1) {|product, integer| product * integer}
+    @distribution_analyzer.log_base_2(number_permutations)
+  end
 
   # private
 

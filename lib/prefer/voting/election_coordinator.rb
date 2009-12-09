@@ -13,7 +13,9 @@ class ElectionCoordinator
 
   def report_election(record)
     record.record_election(:social_profile => aggregate_preferences,
-                           :citizen_sample => citizen_sample)
+                           :citizen_sample => citizen_sample,
+                           :ballots => ballots
+                          )
   end
 
   def report_analysis(record)
@@ -23,6 +25,14 @@ class ElectionCoordinator
   end
 
   # private
+
+  def ballots
+    ballots = Array.new
+    citizen_sample.each do |citizen|
+      ballots << citizen.profile
+    end
+    ballots
+  end
   
   def aggregate_preferences
     @voting_method.run(@citizen_sample) 
