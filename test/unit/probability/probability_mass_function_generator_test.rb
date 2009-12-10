@@ -39,10 +39,10 @@ class ProbabilityMassFunctionGeneratorTest < Test::Unit::TestCase
       @function = generator.build_from_integers(integers)
     end
     test "function integer probability mapping should not be empty" do
-      assert_equal false, @function.integer_probability_map.empty?
+      assert_equal false, @function.integer_probability_relation.empty?
     end
     test "should provide the correct sequence of probabilities derived from their relative size" do
-      assert_equal [0.4, 0.2, 0.1, 0.3].sort, @function.class_probabilities
+      assert_equal [0.4, 0.2, 0.1, 0.3], @function.class_probabilities
     end
   end
 
