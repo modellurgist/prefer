@@ -1,6 +1,6 @@
 
 require 'lib/prefer/simulation/sample_repetition_repository'
-require 'lib/prefer/probability/probability_distribution'
+require 'lib/prefer/probability/probability_mass_function_generator'
 require 'lib/prefer/probability/distribution_analyzer'
 
 class SampleRepository
@@ -87,14 +87,14 @@ class SampleRepository
   #  repetition = find_any_repetition
   #  subrecord = repetition.election_record
   #  @preference_profiles = subrecord.ballots
-  #  distribution = ProbabilityDistribution.new(@preference_profiles)
+  #  distribution = ProbabilityMassFunctionGenerator.new(@preference_profiles)
   #  analyzer = DistributionAnalyzer.new
   #  analyzer.entropy(distribution)
   #end
 
   def entropy_of_actual_preference_distribution
     @preference_profiles = @population_record.ballots
-    distribution = ProbabilityDistribution.new
+    distribution = ProbabilityMassFunctionGenerator.new
     distribution.initialize_with_population(@preference_profiles)
     @distribution_analyzer.entropy(distribution)
   end

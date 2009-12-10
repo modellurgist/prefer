@@ -1,6 +1,6 @@
 
 require 'test/test_helper'
-require 'lib/prefer/probability/probability_distribution'
+require 'lib/prefer/probability/probability_mass_function_generator'
 require 'lib/prefer/probability/distribution_analyzer'
 
 class PreferenceFactoryTest < Test::Unit::TestCase
@@ -17,8 +17,8 @@ class PreferenceFactoryTest < Test::Unit::TestCase
         @sample_size.times do |i|
           @profiles << factory.uniformly_random_permutation
         end
-        @distribution = ProbabilityDistribution.new
-        @distribution.initialize_with_population(@profiles)
+        generator = ProbabilityMassFunctionGenerator.new
+        @distribution = generator.build_from_population(@profiles)
       end
       test "should produce the 6 unique profiles" do
         assert_equal 6, @profiles.uniq.size

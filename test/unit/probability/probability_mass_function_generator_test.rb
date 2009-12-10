@@ -1,8 +1,8 @@
 
 require 'test/test_helper'
-require 'lib/prefer/probability/probability_distribution'
+require 'lib/prefer/probability/probability_mass_function_generator'
 
-class ProbabilityDistributionTest < Test::Unit::TestCase
+class ProbabilityMassFunctionGeneratorTest < Test::Unit::TestCase
 
   context "when initialized with a population of 12 preference profiles with 2 for each of the 6 permutations of 3 alternatives" do
     setup do
@@ -12,14 +12,14 @@ class ProbabilityDistributionTest < Test::Unit::TestCase
       permutations.each do |perm|
         @profiles << perm << perm 
       end
-      @distribution = ProbabilityDistribution.new
-      @distribution.initialize_with_population(@profiles)
+      @generator = ProbabilityMassFunctionGenerator.new
+      @distribution = @generator.build_from_population(@profiles)
     end
     test "should produce the 6 unique profiles" do
       assert_equal 6, @profiles.uniq.size
     end
     test "should return collection of 6 profiles when requested to identify unique classes" do
-      assert_equal 6, @distribution.identify_unique_classes.size
+      assert_equal 6, @distribution.classes.size
     end
     test "should produce a frequency distribution with 6 values" do
       assert_equal 6, @distribution.class_probabilities.size
