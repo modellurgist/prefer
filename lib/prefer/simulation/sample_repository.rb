@@ -94,7 +94,8 @@ class SampleRepository
 
   def entropy_of_actual_preference_distribution
     @preference_profiles = @population_record.ballots
-    distribution = ProbabilityDistribution.new(@preference_profiles)
+    distribution = ProbabilityDistribution.new
+    distribution.initialize_with_population(@preference_profiles)
     @distribution_analyzer.entropy(distribution)
   end
 

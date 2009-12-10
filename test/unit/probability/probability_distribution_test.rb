@@ -12,7 +12,8 @@ class ProbabilityDistributionTest < Test::Unit::TestCase
       permutations.each do |perm|
         @profiles << perm << perm 
       end
-      @distribution = ProbabilityDistribution.new(@profiles)
+      @distribution = ProbabilityDistribution.new
+      @distribution.initialize_with_population(@profiles)
     end
     test "should produce the 6 unique profiles" do
       assert_equal 6, @profiles.uniq.size

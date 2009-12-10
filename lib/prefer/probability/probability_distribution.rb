@@ -1,7 +1,7 @@
 
 class ProbabilityDistribution
 
-  def initialize(population)
+  def initialize_with_population(population)
     @population = population
     @distribution = build_distribution
   end
