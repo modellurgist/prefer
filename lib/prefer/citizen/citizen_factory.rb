@@ -6,7 +6,7 @@ class CitizenFactory
 
   def initialize(alternatives)
     @alternatives = alternatives
-    @preference_factory = PreferenceFactory.new
+    @preference_factory = PreferenceFactory.new(alternatives)
   end
 
   def build
@@ -16,7 +16,7 @@ class CitizenFactory
   private
 
   def build_profile
-    @preference_factory.uniformly_random_permutation(@alternatives)
+    @preference_factory.uniformly_random_permutation
   end
   
 
