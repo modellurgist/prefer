@@ -8,6 +8,16 @@ class ProbabilityMassFunction
     @integer_probability_relation = Array.new
   end
 
+  def probability_for_class(a_class)
+    pair = @class_probability_relation.assoc(a_class)
+    pair.last
+  end
+
+  def probability_for_integer(integer)
+    pair = @integer_probability_relation.assoc(integer)
+    pair.last
+  end
+
   def classes_mapped?
     !(@class_probability_relation.empty?)
   end
@@ -17,7 +27,7 @@ class ProbabilityMassFunction
       a_class = class_integer_pair.first
       integer = class_integer_pair.last
       integer_probability_relation = @integer_probability_relation.dup
-      matching_integer_probability_pair = integer_probability_relation.assoc(integer) # dup or clone?
+      matching_integer_probability_pair = integer_probability_relation.assoc(integer)
       index_of_match = integer_probability_relation.index(matching_integer_probability_pair)
       class_probability_pair = [a_class, matching_integer_probability_pair.last]
       integer_probability_relation.delete_at(index_of_match)

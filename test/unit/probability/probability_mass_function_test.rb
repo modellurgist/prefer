@@ -22,6 +22,9 @@ class ProbabilityMassFunctionTest < Test::Unit::TestCase
       test "probabilities for integers should equal probabilities for classes" do
         assert_equal @function.integer_probabilities, @function.class_probabilities
       end
+      test "probability for orange should be 0.4" do
+        assert_equal 0.4, @function.probability_for_class("orange")
+      end
     end
   end
 end
