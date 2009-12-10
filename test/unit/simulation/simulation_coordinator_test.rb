@@ -41,7 +41,8 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
   context "a new simulation coordinator" do
     context "initialized with complete, valid specification for 3 alternatives, 10 citizens, step size 1, plurality vote" do
       setup do 
-        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1, :repetitions => 1}
+        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, 
+                      :sample_size_increment => 1, :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9}
         @specification = SimulationSpecification.new(parameters)
         @coordinator = SimulationCoordinator.new(@specification)
       end
@@ -62,7 +63,7 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
       end
       context "when it receives the request to run_one_election_for_each_in_sample_size_range" do
         setup do
-          @coordinator.run_one_election_for_each_in_sample_size_range
+          @coordinator.run_multiple_elections_for_each_in_sample_size_range
           @results = @coordinator.results
         end
         test "should create the citizens" do 
@@ -123,7 +124,8 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
     end
     context "initialized with complete, valid specification for 3 alternatives, 1 citizens, step size 1, plurality vote" do
       setup do 
-        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1, :repetitions => 1}
+        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, 
+                      :sample_size_increment => 1, :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9}
         @specification = SimulationSpecification.new(parameters)
         @coordinator = SimulationCoordinator.new(@specification)
       end

@@ -9,13 +9,14 @@ class VotePercentComparisonMethodTest < Test::Unit::TestCase
 
   context "given a simulation coordinator initialized with valid specifications for 10 citizens, 3 alternatives, plurality method, and increment size 1" do
     setup do 
-      parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1, :repetitions => 1}
+      parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1, 
+                    :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9}
       @specification = SimulationSpecification.new(parameters)
       @coordinator = SimulationCoordinator.new(@specification)
     end
     context "when the coordinator is run_one_election_for_each_in_sample_size_range, its results returned" do
       setup do
-        @coordinator.run_one_election_for_each_in_sample_size_range
+        @coordinator.run_multiple_elections_for_each_in_sample_size_range
         @results = @coordinator.results
       end
       context "a new analyzer initialized with a null set of results and a valid record for full population is selected from the results" do

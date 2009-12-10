@@ -7,13 +7,14 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
   context "a new simulation coordinator" do
     context "initialized with complete, valid specification for 3 alternatives, 10 citizens, step size 1, and IRV vote" do
       setup do 
-        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :irv, :sample_size_increment => 1, :repetitions => 1}
+        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :irv, :sample_size_increment => 1, 
+                      :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9}
         @specification = SimulationSpecification.new(parameters)
         @coordinator = SimulationCoordinator.new(@specification)
       end
       context "when it receives the request to run a single repetition for each in the sample size range" do
         setup do
-          @coordinator.run_one_election_for_each_in_sample_size_range
+          @coordinator.run_multiple_elections_for_each_in_sample_size_range
           @results = @coordinator.results
         end
         context "and the results are examined" do
@@ -45,7 +46,8 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
   context "a new simulation coordinator" do
     context "initialized with complete, valid specification for multiple elections for one sample size on 3 alternatives, 10 citizens, sample size 5, repetitions 3, and IRV vote" do
       setup do
-        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :irv, :sample_size => 5, :repetitions => 3}
+        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :irv,
+                      :repetitions => 3, :sample_size => 5}
         @specification = SimulationSpecification.new(parameters)
         @coordinator = SimulationCoordinator.new(@specification)
       end

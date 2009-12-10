@@ -13,11 +13,8 @@ class SimulationSpecification
     #elsif (@increment_type = @specifications[:increment_type]).nil? then throw :null_parameter
     elsif (@voting_method = @specifications[:voting_method]).nil? then throw :null_parameter
     elsif (@repetitions = @specifications[:repetitions]).nil? then throw :null_parameter
-    elsif (@sample_size_increment = @specifications[:sample_size_increment]).nil? then throw :null_parameter
-    elsif (@sample_size_minimum = @specifications[:sample_size_minimum]).nil? then throw :null_parameter
-    elsif (@sample_size_maximum = @specifications[:sample_size_maximum]).nil? then throw :null_parameter
     end
-    set_optional_parameters(@specifications)
+    set_case_specific_parameters(@specifications)
   end
 
   # private
@@ -27,17 +24,23 @@ class SimulationSpecification
     @specifications.delete(:created_at)
   end
 
+  def set_case_specific_parameters(parameters)  
+    unless @specifications[:sample_size_increment].nil? then @sample_size_increment = @specifications[:sample_size_increment]
+    end
+    unless @specifications[:sample_size_minimum].nil? then @sample_size_minimum = @specifications[:sample_size_minimum]
+    end
+    unless @specifications[:sample_size_maximum].nil? then @sample_size_maximum = @specifications[:sample_size_maximum]
+    end
+    unless @specifications[:sample_size].nil? then @sample_size = @specifications[:sample_size]
+    end 
+  end
+
   def convert_parameter_keys_to_symbols(parameters)
     converted_parameters = Hash.new
     parameters.each do |key, value|
       converted_parameters[key.to_sym] = value
     end
     converted_parameters
-  end
-
-  def set_optional_parameters(parameters)  # DEPRECATED !
-    unless parameters[:sample_size].nil? then @sample_size = parameters[:sample_size]
-    end # deprecated !!
   end
 
 
