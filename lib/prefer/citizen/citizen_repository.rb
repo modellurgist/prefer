@@ -1,11 +1,11 @@
 
-require 'lib/prefer/probability/random'
+require 'lib/prefer/probability/random_service'
 
 class CitizenRepository
 
   def initialize
     @citizens = []
-    @random = Random.new
+    @random = RandomService.new
   end
 
   def store(citizen)
@@ -31,7 +31,7 @@ class CitizenRepository
     sample = Array.new
     citizens_copy = Array.new(@citizens)
     size.times do 
-      selected_citizen = citizens_copy[@random.select_one_integer(citizens_copy.size)] 
+      selected_citizen = citizens_copy[@random.select_integer_from_zero_to_one_less_than(citizens_copy.size)] 
       sample << selected_citizen
       citizens_copy.delete(selected_citizen) { throw :not_found }
     end

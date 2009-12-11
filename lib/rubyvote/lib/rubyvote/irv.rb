@@ -1,10 +1,10 @@
 
 require 'lib/rubyvote/lib/rubyvote/election'
-require 'lib/prefer/probability/random'
+require 'lib/prefer/probability/random_service'
 
 class InstantRunoffVote < ElectionVote
   def initialize(votes=nil)
-    @random = Random.new
+    @random = RandomService.new
     @candidates = Array.new
     votes.each do |vote|
       @candidates = vote.uniq if vote.uniq.length > candidates.length
@@ -228,7 +228,7 @@ class InstantRunoffRandomResult < InstantRunoffResult
     losers = ranked_candidates.find_all do |i|
       votes[i][0] == votes[ranked_candidates[-1]][0]
     end
-    loser = losers[@random.select_one_integer(losers.length)]
+    loser = losers[@random.select_integer_from_zero_to_one_less_than(losers.length)]
     @ranked_candidates.unshift(loser)
     remove_candidate(votes, loser)
   end
