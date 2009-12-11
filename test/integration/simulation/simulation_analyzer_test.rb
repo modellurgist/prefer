@@ -6,21 +6,40 @@ require 'lib/prefer/simulation/simulation_specification'
 
 class SimulationAnalyzerTest < Test::Unit::TestCase
 
-  context "given a simulation coordinator initialized with valid specifications for 10 citizens, 3 alternatives, plurality method, and increment size 1" do
+  context "given a simulation coordinator initialized with valid specifications for 10 citizens, 3 alternatives, plurality method, 10 repetitions, and increment size 1" do
+    setup do
+      parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1,
+                    :repetitions => 10, :sample_size_minimum => 1, :sample_size_maximum => 9}
+      @specification = SimulationSpecification.new(parameters)
+      @coordinator = SimulationCoordinator.new(@specification)
+    end
+    context "when the coordinator is run_multiple_election_for_each_in_sample_size_range, its results returned" do
+      setup do
+        @coordinator.run_multiple_elections_for_each_in_sample_size_range
+        @results = @coordinator.results
+      end
+      test "the variance for the population winner vote percent in sample size 9 should be greater than zero" do
+        population_winner = @results.retrieve_population_record.winning_alternative
+        variance_in_sample = @results.find_statistic_for_sample_size(9, :variance, :vote_percent, population_winner)
+        assert_block {variance_in_sample > 0}
+      end
+    end
+  end
+
+  context "given a simulation coordinator initialized with valid specifications for 10 citizens, 3 alternatives, plurality method, 1 repetition, and increment size 1" do
     setup do 
       parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1, 
                     :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9}
       @specification = SimulationSpecification.new(parameters)
       @coordinator = SimulationCoordinator.new(@specification)
     end
-    context "when the coordinator is run_one_election_for_each_in_sample_size_range, its results returned" do
+    context "when the coordinator is run_multiple_election_for_each_in_sample_size_range, its results returned" do
       setup do
         @coordinator.run_multiple_elections_for_each_in_sample_size_range
         @results = @coordinator.results
       end
-      context "a new analyzer initialized with a null set of results and a valid record for full population is selected from the results" do
+      context "a valid record for full population is selected from the results" do
         setup do
-          #@analyzer = SimulationAnalyzer.new({})
           @record = @results.retrieve_population_record
           @population_winner = @record.winning_alternative
           @population_vote_percent_for_alternative = @record.analysis_records[:vote_percent][@population_winner]
@@ -32,12 +51,12 @@ class SimulationAnalyzerTest < Test::Unit::TestCase
           assert_not_nil @record.analysis_records[:vote_percent][@population_winner]
         end
       end
+
       context "a new analyzer initialized with the full set of results" do
         setup do
           @second_analyzer = SimulationAnalyzer.new(@results)
           @record = @results.retrieve_population_record
           @population_winner = @record.winning_alternative
-          #@population_vote_percent_for_alternative = @record.analysis_records[:vote_percent][@alternative]
         end
         test "the input results should not be null" do
           assert_not_nil @results
@@ -48,21 +67,6 @@ class SimulationAnalyzerTest < Test::Unit::TestCase
         test "its results should not be empty" do
           assert !@second_analyzer.results.empty?
         end
-        #test "the sample vote percent for winning alternative should not be nil" do
-        #  assert_not_nil @second_analyzer.sample_vote_percent_for(@record, @population_winner) 
-        #end
-        #test "the population vote percent for winning alternative should not be nil" do
-        #  assert_not_nil @second_analyzer.population_vote_percent_for(@population_winner)
-        #end
-        #test "when the record is sent with a compare vote percent for sample message, it should calculate the sample deviation from the population's vote percent for the winner" do
-        #  assert_equal 0, @second_analyzer.compare_vote_percent_for_sample(@record, @population_winner)
-        #end
-        #test "it should not raise an error when compare by vote percent is sent" do
-        #  assert_nothing_raised {@second_analyzer.compare_by_vote_percent}
-        #end
-        #test "it should return correct vote percent for winner in full population sample" do
-        #  assert(@second_analyzer.population_vote_percent_for(@population_winner) > 0)
-        #end
       end
     end
   end

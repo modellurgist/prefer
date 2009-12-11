@@ -24,8 +24,10 @@ class SampleRepetitionRepository
     @statistics = statistics_hash
   end
 
-  def retrieve_statistics
-    @statistics
+  def find_statistic_for_sample_size(statistic_symbol, analysis_symbol, variable_symbol)
+    results_for_statistic = @statistics[statistic_symbol]
+    statistic_results_for_analysis = results_for_statistic[analysis_symbol]
+    statistic_results_for_analysis[variable_symbol]
   end
 
   def find_any_repetition

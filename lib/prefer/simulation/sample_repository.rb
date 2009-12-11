@@ -53,6 +53,11 @@ class SampleRepository
     sample_repetition_repository.store_statistics(statistics_hash)
   end
 
+  def find_statistic_for_sample_size(sample_size, statistic_symbol, analysis_symbol, variable_symbol)
+    repetitions_repository = retrieve_repetition_repository(sample_size)
+    repetitions_repository.find_statistic_for_sample_size(statistic_symbol, analysis_symbol, variable_symbol)
+  end
+
   def find_all_repetitions_for_all_sizes
     repetition_repos = @sample_map.values
     collection = repetition_repos.collect do |repetition_repo|
