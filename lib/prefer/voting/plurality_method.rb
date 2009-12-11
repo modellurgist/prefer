@@ -18,7 +18,7 @@ class PluralityMethod < VotingMethod
   end
 
   def compatible_simulation_analyses
-    [:compare_by_vote_percent]
+    [:compare_by_vote_percent, :sample_statistics]
   end
 
   def initialize_tally_for_each_alternative(citizens)

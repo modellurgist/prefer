@@ -1,5 +1,6 @@
 
 require 'lib/prefer/analysis/simulation/vote_percent_comparison_method'
+require 'lib/prefer/analysis/simulation/sample_statistics_suite'
 
 class SimulationAnalysisFactory
 
@@ -13,6 +14,9 @@ class SimulationAnalysisFactory
     VotePercentComparisonMethod.new
   end
   
+  def sample_statistics
+    SampleStatisticsSuite.new
+  end
   
   
 end

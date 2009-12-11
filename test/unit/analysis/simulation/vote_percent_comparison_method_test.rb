@@ -41,17 +41,17 @@ class VotePercentComparisonMethodTest < Test::Unit::TestCase
       #test "should calculate and store correct comparison result for third sample" do
       #  @analyzer.run(@results)
       #  population_record = @results.retrieve_population_record
-      #  assert_equal 0, population_record.comparison_records[:vote_percent]["apple"]
+      #  assert_equal 0, population_record.simulation_analysis_records[:vote_percent]["apple"]
       #end
       test "should calculate and store correct comparison result for second sample" do
         @analyzer.run(@results)
         sample_record = @results.find_any_repetition_for_size(2)
-        assert_equal (100 - 2.0/3*100), sample_record.comparison_records[:vote_percent]["apple"] 
+        assert_equal (100 - 2.0/3*100), sample_record.simulation_analysis_records[:vote_percent]["apple"] 
       end
       test "should calculate and store correct comparison result for first sample" do
         @analyzer.run(@results)
         sample_record = @results.find_any_repetition_for_size(1)
-        assert_equal (-2.0/3*100), sample_record.comparison_records[:vote_percent]["apple"] 
+        assert_equal (-2.0/3*100), sample_record.simulation_analysis_records[:vote_percent]["apple"] 
       end
     end
   end

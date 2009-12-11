@@ -4,16 +4,14 @@ require 'fastercsv'
 class SimulationResultRecord
 
   attr_reader :election_record
-  #attr_reader :election_records
   attr_reader :analysis_records
-  attr_reader :comparison_records
+  attr_reader :simulation_analysis_records
   attr_accessor :specifications
 
   def initialize
     @election_record = Hash.new
-    #@election_records = Hash.new
     @analysis_records = Hash.new
-    @comparison_records = Hash.new
+    @simulation_analysis_records = Hash.new
   end
 
   def winning_alternative
@@ -40,17 +38,21 @@ class SimulationResultRecord
     @analysis_records[analysis_symbol] = analysis_hash
   end
 
-  def record_comparison(analysis_symbol, alternative, sample_deviation)
+  def record_simulation_analysis(analysis_symbol, alternative, sample_deviation)
     create_comparison_analysis_record(analysis_symbol)
-    @comparison_records[analysis_symbol][alternative] = sample_deviation
+    @simulation_analysis_records[analysis_symbol][alternative] = sample_deviation
   end
 
   def comparison_to_csv(analysis_symbol, alternative)
-    to_csv_line(@comparison_records[analysis_symbol][alternative]) 
+    to_csv_line(@simulation_analysis_records[analysis_symbol][alternative])
   end
 
-  def available_comparisons
-    @analysis_records.keys 
+  def available_analyses
+    @analysis_records.keys
+  end
+
+  def available_simulation_analyses
+    @simulation_analysis_records.keys
   end
 
   def voting_method
@@ -65,7 +67,7 @@ class SimulationResultRecord
   end
   
   def create_comparison_analysis_record(analysis_symbol)
-    @comparison_records[analysis_symbol] = {} if @comparison_records[analysis_symbol].nil?
+    @simulation_analysis_records[analysis_symbol] = {} if @simulation_analysis_records[analysis_symbol].nil?
   end
 
   def sample_size

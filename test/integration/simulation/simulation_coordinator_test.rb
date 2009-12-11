@@ -31,10 +31,10 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
                 @repetitions = @results.find_all_repetitions_for_all_sizes
               end
               test "each result's comparison records should not be empty" do
-                assert @repetitions.all? {|record| !record.comparison_records.empty?}
+                assert @repetitions.all? {|record| !record.simulation_analysis_records.empty?}
               end
               test "each result should have a vote percent comparison that is not nil" do
-                assert @repetitions.all? {|record| record.comparison_records.all? {|key,comparison| comparison != nil}}
+                assert @repetitions.all? {|record| record.simulation_analysis_records.all? {|key,comparison| comparison != nil}}
               end
             end
           end

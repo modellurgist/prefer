@@ -15,7 +15,7 @@ class IrvMethod < VotingMethod
   end
   
   def compatible_simulation_analyses
-    [:compare_by_vote_percent]
+    [:compare_by_vote_percent, :sample_statistics]
   end
 
   def determine_social_profile_by_irv(profiles)

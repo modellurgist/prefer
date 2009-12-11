@@ -36,12 +36,21 @@ class SampleRepository
     @population_record
   end
 
+  def population_repetition_analysis_for(analysis_symbol)
+    retrieve_population_record.analysis_records[analysis_symbol]
+  end
+
   def store_repetition_for_size(record, sample_size)
     unless (has_sample_size?(sample_size))
       new_sample_size(sample_size)
     end
     repetition_repo = retrieve_repetition_repository(sample_size)
     repetition_repo.store_repetition(record)
+  end
+
+  def store_statistics_for_sample_size(statistics_hash, sample_size)
+    sample_repetition_repository = retrieve_repetition_repository(sample_size)
+    sample_repetition_repository.store_statistics(statistics_hash)
   end
 
   def find_all_repetitions_for_all_sizes
@@ -81,16 +90,12 @@ class SampleRepository
     @sample_map.keys
   end
 
-  # Analyses to factor out into separate object
+  def repetition_analysis_symbols
+    repetition = find_any_repetition
+    repetition.available_analyses
+  end
 
-  #def entropy_of_actual_preference_distribution
-  #  repetition = find_any_repetition
-  #  subrecord = repetition.election_record
-  #  @preference_profiles = subrecord.ballots
-  #  distribution = ProbabilityMassFunctionGenerator.new(@preference_profiles)
-  #  analyzer = DistributionAnalyzer.new
-  #  analyzer.entropy(distribution)
-  #end
+  # Analyses to factor out into separate object
 
   def entropy_of_actual_preference_distribution
     @preference_profiles = @population_record.ballots
@@ -99,7 +104,6 @@ class SampleRepository
     @distribution_analyzer.entropy(distribution)
   end
 
-  # This SHOULD USE MAX POSSIBLE NUMBER OF PERMUTATIONS OF ALTERNATIVES (not actual number, since some might be unassigned)
   def entropy_of_uniform_distribution
     number_alternatives = @population_record.number_alternatives
     number_permutations = (2..number_alternatives).inject(1) {|product, integer| product * integer}
@@ -127,7 +131,5 @@ class SampleRepository
     unless (sizes.nil?) then return sizes.find {|size| size > 0}
     end
   end
-
-
 
 end

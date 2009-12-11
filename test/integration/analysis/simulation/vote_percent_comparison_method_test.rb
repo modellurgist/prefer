@@ -74,7 +74,7 @@ class VotePercentComparisonMethodTest < Test::Unit::TestCase
         #    assert_not_nil @results
         #  end
         #  test "the results for population sample should contain correct comparison for vote percent" do
-        #    assert_equal 0, @record.comparison_records[:vote_percent][@population_winner] 
+        #    assert_equal 0, @record.simulation_analysis_records[:vote_percent][@population_winner] 
         #  end
         #  test "population vote percent is not null" do
         #    assert_not_nil @second_analyzer.population_vote_percent_for(@population_winner) 

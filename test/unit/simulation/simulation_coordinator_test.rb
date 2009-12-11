@@ -86,17 +86,17 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
             assert_equal 4, result_fourth_sample.election_record[:citizen_sample].size
           end
           test "each result's comparison records should not be nil" do
-            assert @all_records.all? {|record| record.comparison_records != nil}
+            assert @all_records.all? {|record| record.simulation_analysis_records != nil}
           end
           context "and it receives the request to perform sample comparisons" do
             setup do
               @coordinator.perform_simulation_analyses
             end
             test "each result's comparison records should not be empty" do
-              assert @all_records.all? {|record| !record.comparison_records.empty?}
+              assert @all_records.all? {|record| !record.simulation_analysis_records.empty?}
             end
             test "each result should have a vote percent comparison that is not nil" do
-              assert @all_records.all? {|record| record.comparison_records.all? {|key,comparison| comparison != nil}}
+              assert @all_records.all? {|record| record.simulation_analysis_records.all? {|key,comparison| comparison != nil}}
             end
           end
         end
