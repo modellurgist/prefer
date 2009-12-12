@@ -57,6 +57,10 @@ class ProbabilityMassFunction
     @integer_probability_relation.collect {|pair| pair.last}
   end
 
+  def integers
+    @integer_probability_relation.collect {|pair| pair.first}
+  end
+
   def number_unique_classes
     @class_probability_relation.size
   end

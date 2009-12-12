@@ -10,7 +10,7 @@ class ImpartialAnonymousDistributionFactoryTest < Test::Unit::TestCase
       @population_size = 40
       @alternatives = [1, 2, 3]
     end
-    context "a request to build partial mass function should return a partially complete probability mass function" do
+    context "a request to build partial mass function returns a partially complete probability mass function" do
       setup do
         @function = @factory.build_function_with_integer_probability_mappings(@alternatives)
       end
@@ -18,7 +18,13 @@ class ImpartialAnonymousDistributionFactoryTest < Test::Unit::TestCase
         assert @function.integer_probabilities.size > 0
       end
     end
-    test "a request to build probability mass function with random assignment should" do
+    context "a request to build function with random assignment returns a complete probability function" do
+      setup do
+        @function = @factory.build_function_having_random_profile_assignment(@alternatives)
+      end
+      test "function should have its classes mapped" do
+        assert @function.classes_mapped?
+      end
     end
     test "a request to build population with random assignment should " do
     end
