@@ -155,9 +155,7 @@ class SimulationCoordinator
   end
 
   def create_citizens
-    for index in 1..@specification.population_size  
-      @citizens << @citizen_factory.build
-    end
+    @citizens = @citizen_factory.build_collection(@specification.population_size)
   end
 
   def store_citizens
