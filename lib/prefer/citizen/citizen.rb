@@ -1,12 +1,12 @@
 
 class Citizen
 
-  def initialize(profile)
+  def initialize(profile = [])
     throw :invalid_profile unless profile.respond_to?(:each)
     @profile = profile
   end
   
-  attr_reader :profile
+  attr_accessor :profile
 
   def first_choice
     @profile.first
