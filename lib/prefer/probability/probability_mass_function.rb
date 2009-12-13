@@ -1,7 +1,7 @@
 
 class ProbabilityMassFunction
 
-  attr_reader :integer_probability_relation, :class_probability_relation # only used for testing
+  attr_reader :integer_probability_relation, :class_probability_relation
 
   def initialize
     @class_probability_relation = Array.new

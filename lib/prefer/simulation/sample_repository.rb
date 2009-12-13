@@ -100,13 +100,27 @@ class SampleRepository
     repetition.available_analyses
   end
 
+  def class_probability_relation
+    probability_mass_function.class_probability_relation
+  end
+
   # Analyses to factor out into separate object
 
   def entropy_of_actual_preference_distribution
-    @preference_profiles = @population_record.ballots
-    function_generator = ProbabilityMassFunctionGenerator.new
-    function = function_generator.build_from_population(@preference_profiles)
+    function = probability_mass_function
     @distribution_analyzer.entropy(function)
+  end
+
+  def population_ballots
+    retrieve_population_record.ballots
+  end
+
+  def probability_mass_function
+    if (@probability_mass_function.nil?)
+      function_generator = ProbabilityMassFunctionGenerator.new
+      @probability_mass_function = function_generator.build_from_population(population_ballots)
+    end
+    @probability_mass_function
   end
 
   def entropy_of_uniform_distribution

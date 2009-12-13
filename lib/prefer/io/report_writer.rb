@@ -16,6 +16,7 @@ class ReportWriter
     results_iterator = results_iterator(results)
     write_header
     report_specification
+    report_probability_function
     report_analyses(results_iterator, results)
     report_elections(results_iterator)
   end
@@ -53,9 +54,22 @@ class ReportWriter
     Time.now.strftime("%m-%d-%Y_%H%M")
   end
 
-
   def write_header
     self.puts "Full Report of Simulation Results, Analysis, and Input"
+  end
+
+  def report_probability_function
+    triple_space
+    self.puts "Probability Mass Function/Relation (Ballot vs. Probability in Population)"
+    double_space
+    self.puts "Ballot, Probability"
+    class_probability_relation.each do |pair|
+      self.puts simple_collection_to_csv_line(pair)
+    end
+  end
+
+  def class_probability_relation
+    results.class_probability_relation
   end
 
   def triple_space
