@@ -2,7 +2,7 @@
 class SimulationSpecification
 
   attr_reader :alternatives, :population_size, :voting_method, :sample_size_increment, :specifications,
-              :repetitions, :sample_size_minimum, :sample_size_maximum,
+              :repetitions, :sample_size_minimum, :sample_size_maximum, :distribution_type,
               :sample_size  # deprecated !
 
   def initialize(parameters) 
@@ -13,6 +13,7 @@ class SimulationSpecification
     #elsif (@increment_type = @specifications[:increment_type]).nil? then throw :null_parameter
     elsif (@voting_method = @specifications[:voting_method]).nil? then throw :null_parameter
     elsif (@repetitions = @specifications[:repetitions]).nil? then throw :null_parameter
+    elsif (@distribution_type = @specifications[:distribution_type]).nil? then throw :null_parameter
     end
     set_case_specific_parameters(@specifications)
   end

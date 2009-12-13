@@ -155,7 +155,7 @@ class SimulationCoordinator
   end
 
   def create_citizens
-    @citizens = @citizen_factory.build_collection(@specification.population_size)
+    @citizens = @citizen_factory.build_collection(@specification.population_size, @specification.distribution_type)
   end
 
   def store_citizens

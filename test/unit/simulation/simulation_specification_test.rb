@@ -13,7 +13,7 @@ class SimulationSpecificationTest < Test::Unit::TestCase
       @voting_method = :plurality
       @parameters = { :alternatives => @alternatives, :population_size => @population_size,
                       :sample_size_increment => @sample_size_increment, :increment_type => @increment_type,
-                      :voting_method => @voting_method }
+                      :voting_method => @voting_method, :distribution_type => :approximate_uniform }
     end
     context "should cause null parameter throw" do
       test "if missing a collection of alternatives" do

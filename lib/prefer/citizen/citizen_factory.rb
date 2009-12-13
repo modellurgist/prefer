@@ -9,8 +9,8 @@ class CitizenFactory
     @preference_factory = PreferenceFactory.new(alternatives)
   end
 
-  def build_collection(population_size)
-    profiles = build_all_profiles(population_size, :approximate_uniform)
+  def build_collection(population_size, distribution_type_symbol)
+    profiles = build_all_profiles(population_size, distribution_type_symbol)
     profiles.collect! do |profile|
       build_with_profile(profile)
     end

@@ -20,10 +20,8 @@ class PreferenceFactory
 
   # private
 
-
   def uniformly_random_permutation # DEPRECATED as public, but use as private (consider moving to pmf gen.)
     @alternatives.sort_by {|alternative| @random.select_integer_from_zero_to_one_less_than(0)}
   end
-
 
 end

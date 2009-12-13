@@ -42,7 +42,8 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
     context "initialized with complete, valid specification for 3 alternatives, 10 citizens, step size 1, plurality vote" do
       setup do 
         parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, 
-                      :sample_size_increment => 1, :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9}
+                      :sample_size_increment => 1, :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9,
+                      :distribution_type => :approximate_uniform}
         @specification = SimulationSpecification.new(parameters)
         @coordinator = SimulationCoordinator.new(@specification)
       end
@@ -125,7 +126,8 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
     context "initialized with complete, valid specification for 3 alternatives, 1 citizens, step size 1, plurality vote" do
       setup do 
         parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, 
-                      :sample_size_increment => 1, :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9}
+                      :sample_size_increment => 1, :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9,
+                      :distribution_type => :approximate_uniform}
         @specification = SimulationSpecification.new(parameters)
         @coordinator = SimulationCoordinator.new(@specification)
       end
