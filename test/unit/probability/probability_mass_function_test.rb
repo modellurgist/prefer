@@ -25,6 +25,20 @@ class ProbabilityMassFunctionTest < Test::Unit::TestCase
       test "probability for orange should be 0.4" do
         assert_equal 0.4, @function.probability_for_class("orange")
       end
+      context "a population of size 100 is requested" do
+        setup do
+          @preference_orderings = @function.build_population_of_size(100)
+        end
+        test "should build a collection of exactly 100 objects" do
+          assert_equal 100, @preference_orderings.size
+        end
+        test ", taken from each class that has a non zero probability and is of sufficient magnitude" do
+
+        end
+        test "that very closely matches its" do
+
+        end
+      end
     end
   end
 end

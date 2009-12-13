@@ -26,8 +26,6 @@ class ImpartialAnonymousDistributionFactoryTest < Test::Unit::TestCase
         assert @function.classes_mapped?
       end
     end
-    test "a request to build population with random assignment should " do
-    end
   end
 
 end

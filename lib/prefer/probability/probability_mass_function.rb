@@ -8,6 +8,16 @@ class ProbabilityMassFunction
     @integer_probability_relation = Array.new
   end
 
+  def build_population_of_size(population_size)
+    distribution = @class_probability_relation.dup
+    distribution.collect! {|pair| [pair.first, (pair.last * population_size).round]}
+    population_nested = distribution.collect {|pair| pair.last.times.collect { pair.first } }
+    population = population_nested.flatten
+    if (population.size != population_size) then throw :incorrect_population_size
+    end
+    population
+  end
+
   def probability_for_class(a_class)
     pair = @class_probability_relation.assoc(a_class)
     pair.last
