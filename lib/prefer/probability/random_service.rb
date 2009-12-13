@@ -9,7 +9,11 @@ class RandomService
     @true_generator = Random::RandomOrg.new
   end
 
-  def self.set_random_number_generator(name)
+  def self.random_number_generator_name
+    @@random_number_generator_name
+  end
+
+  def self.set_random_number_generator_name(name)
     @@random_number_generator_name = name
   end
 

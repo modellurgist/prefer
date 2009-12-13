@@ -13,12 +13,12 @@ class Simulation < ActiveRecord::Base
   end
 
   def run
-    RandomService.set_random_number_generator("pseudorandom")
+    RandomService.set_random_number_generator_name("pseudorandom")
     run_tasks
   end
 
   def run_true_random
-    RandomService.set_random_number_generator("true_random")
+    RandomService.set_random_number_generator_name("true_random")
     run_tasks
   end
 

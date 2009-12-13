@@ -46,6 +46,14 @@ class ReportWriter
     "#{voting_method}-vote__#{number_alternatives}-alternatives__#{population_size}-unconnected-citizens__uniformly-distributed-profiles__sampled-mod-#{sample_size_increment}__#{readable_timestamp}.csv"
   end
 
+  def distribution_type
+    @specification.distribution_type
+  end
+
+  def random_number_generator_name
+    RandomService.random_number_generator_name
+  end
+
   def population_size
     @specification.population_size
   end
@@ -56,20 +64,6 @@ class ReportWriter
 
   def write_header
     self.puts "Full Report of Simulation Results, Analysis, and Input"
-  end
-
-  def report_probability_function
-    triple_space
-    self.puts "Probability Mass Function/Relation (Ballot vs. Probability in Population)"
-    double_space
-    self.puts "Ballot, Probability"
-    class_probability_relation.each do |pair|
-      self.puts simple_collection_to_csv_line(pair)
-    end
-  end
-
-  def class_probability_relation
-    results.class_probability_relation
   end
 
   def triple_space
@@ -87,9 +81,7 @@ class ReportWriter
     self.puts nested_collection_to_csv_line(@specification.specifications.keys)
     self.puts nested_collection_to_csv_line(@specification.specifications.values)
     double_space
-    self.puts "Probability Distribution of Preference Profiles"
-    self.puts "entropy(distribution) = #{results.entropy_of_actual_preference_distribution} bits"
-    self.puts "entropy(uniform_distribution) = #{results.entropy_of_uniform_distribution} bits"
+    self.puts "Random number generator:  #{random_number_generator_name}"
   end
 
   def nested_collection_to_csv_line(nested_collection)
@@ -112,11 +104,30 @@ class ReportWriter
     string << ")"
   end
 
+  def report_probability_function
+    triple_space
+    self.puts "Actual Probability Mass Function/Relation (Ballot vs. Probability in Population)"
+    double_space
+    self.puts "Ballot, Probability"
+    class_probability_relation.each do |pair|
+      self.puts simple_collection_to_csv_line(pair)
+    end
+    double_space
+    self.puts "Distribution type used to generate this function:  #{distribution_type.to_s}"
+    triple_space
+    self.puts "Characteristics of this Probability Distribution of Preference Orderings"
+    double_space
+    self.puts "entropy = #{results.entropy_of_actual_preference_distribution} bits  (Note: entropy of uniform distribution is #{results.entropy_of_uniform_distribution})"
+  end
+
+  def class_probability_relation
+    results.class_probability_relation
+  end
+
   def write_analysis_header
     triple_space
     self.puts "Results of Analyses"
-    double_space
-    self.puts "Sample Size, Percentage Vote for Population Winner"
+    triple_space
   end
 
   def population_record
@@ -129,13 +140,18 @@ class ReportWriter
 
   def report_analyses(results_iterator, results)
     write_analysis_header
+    # one analysis:  vote_percent
+    self.puts "Vote Percent Analysis"
+    double_space
+    self.puts "Sample Size, Percentage Vote for Population Winner" # this should be obtained from the analyzer or an analysis record
     results_iterator.each do |sample_size, collection|
-  # consider generalizing, by first getting any analysis record and for each in it do the following
+      # consider generalizing, by first getting any analysis record and for each in it do the following
       collection.each do |record|
         report_one_analysis_record(sample_size, record, :vote_percent, population_winner)
       end
     end
     report_one_analysis_record(population_record.population_size, population_record, :vote_percent, population_winner)
+    # end of one analysis
   end
 
   # shouldn't an analysis know how to report itself, using the result record??!!
