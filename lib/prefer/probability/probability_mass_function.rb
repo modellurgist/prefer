@@ -1,7 +1,7 @@
 
 class ProbabilityMassFunction
 
-  attr_reader :integer_probability_relation
+  attr_reader :integer_probability_relation, :class_probability_relation # only used for testing
 
   def initialize
     @class_probability_relation = Array.new
@@ -9,11 +9,11 @@ class ProbabilityMassFunction
   end
 
   def build_population_of_size(population_size)
-    distribution = @class_probability_relation.dup
-    distribution.collect! {|pair| [pair.first, (pair.last * population_size).round]}
-    population_nested = distribution.collect {|pair| pair.last.times.collect { pair.first } }
-    population = population_nested.flatten
-    if (population.size != population_size) then throw :incorrect_population_size
+    expanded_distribution = expand_distribution_to_correct_size(population_size)
+    population = Array.new
+    expanded_distribution.each do |pair|
+      subcollection = population_members_of_class_from_integer_relation(pair)
+      population.concat(subcollection)
     end
     population
   end
@@ -77,5 +77,48 @@ class ProbabilityMassFunction
 
   # private
 
+  def population_members_of_class_from_integer_relation(pair)
+    pair.last.times.collect { pair.first }
+  end
+
+  def expand_distribution_to_correct_size(population_size)
+    distribution = @class_probability_relation.dup
+    expanded_distribution = distribution.collect {|pair| [pair.first, (pair.last * population_size).round]}
+    expanded_distribution = expanded_distribution.sort {|pair_a, pair_b| pair_b.last <=> pair_a.last}
+    corrections = expanded_distribution.collect {|pair| 0}
+    while (population_size_of_integer_relation(corrected_distribution(expanded_distribution, corrections)) != population_size) do
+      if (population_size_of_integer_relation(corrected_distribution(expanded_distribution, corrections)) > population_size)
+        correct_once_downward(corrections)
+      else
+        correct_once_upward(corrections)
+      end
+    end
+    corrected_distribution(expanded_distribution, corrections)
+  end
+
+  def population_size_of_integer_relation(relation)
+    values = relation.collect {|pair| pair.last}
+    values.inject {|sum, value| sum + value}
+  end
+
+  def corrected_distribution(distribution, corrections)
+    corrected_distribution = Array.new
+    distribution.each_with_index do |pair, index|
+      initial_value = pair.last
+      adjusted_value = initial_value + corrections[index]
+      corrected_distribution << [pair.first, adjusted_value]
+    end
+    corrected_distribution
+  end
+
+  def correct_once_downward(corrections)
+    index = corrections.index(0)
+    corrections[index] = -1
+  end
+
+  def correct_once_upward(corrections)
+    index = corrections.index(0)
+    corrections[index] = 1
+  end
 
 end

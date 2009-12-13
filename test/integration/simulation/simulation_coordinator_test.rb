@@ -70,4 +70,32 @@ class SimulationCoordinatorTest < Test::Unit::TestCase
     end
   end
 
+  context "a new simulation coordinator" do
+    context "initialized with complete, valid specification for multiple elections for one sample size on 3 alternatives, 10 citizens, sample size 5, repetitions 2, and IRV vote" do
+      setup do
+        parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 40, :voting_method => :irv,
+                      :repetitions => 2, :sample_size => 5, :distribution_type => :impartial_anonymous}
+        @specification = SimulationSpecification.new(parameters)
+        @coordinator = SimulationCoordinator.new(@specification)
+      end
+      context "when it receives the request to run with multiple repetitions of same one sample size" do
+        setup do
+          @coordinator.run_multiple_elections_for_one_sample_size
+          @results = @coordinator.results
+        end
+        context "and the results are examined" do
+          test "there should be 2 records for sample size 5" do
+            repetitions = @results.find_all_repetitions_for_size(5)
+            assert_equal 2, repetitions.size
+          end
+          test "there should be an election record for the first record for sample size 5" do
+            repetition = @results.find_any_repetition_for_size(5)
+            assert_not_nil repetition.election_record
+          end
+        end
+      end
+    end
+  end
+
+
 end

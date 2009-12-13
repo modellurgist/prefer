@@ -25,6 +25,9 @@ class ProbabilityMassFunctionTest < Test::Unit::TestCase
       test "probability for orange should be 0.4" do
         assert_equal 0.4, @function.probability_for_class("orange")
       end
+      test "" do
+
+      end
       context "a population of size 100 is requested" do
         setup do
           @preference_orderings = @function.build_population_of_size(100)
