@@ -32,11 +32,7 @@ class ProbabilityMassFunctionTest < Test::Unit::TestCase
         test "should build a collection of exactly 100 objects" do
           assert_equal 100, @preference_orderings.size
         end
-        test ", taken from each class that has a non zero probability and is of sufficient magnitude" do
-
-        end
-        test "that very closely matches its" do
-
+        test "that very closely matches its original distribution" do
         end
       end
     end

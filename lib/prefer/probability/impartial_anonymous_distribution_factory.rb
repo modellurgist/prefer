@@ -12,12 +12,12 @@ class ImpartialAnonymousDistributionFactory < DistributionFactory
     function
   end
 
+  # private
+
   def build_function_with_integer_probability_mappings(alternatives)
     integer_distribution = build_unnormalized_distribution(alternatives)
     @probability_function_generator.build_from_integers(integer_distribution)
   end
-
-  # private
   
   def build_unnormalized_distribution(alternatives)
     number_of_permutations_of(alternatives).times.collect do

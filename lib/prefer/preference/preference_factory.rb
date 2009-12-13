@@ -8,13 +8,14 @@ class PreferenceFactory
     @random = RandomService.new
   end
 
-  def build_all_profiles_from_approximate_uniform_distribution(population_size)
-    population_size.times.collect {uniformly_random_permutation}
-  end
-
   def build_all_profiles_from_impartial_anonymous_distribution(population_size)
     distribution_factory = ImpartialAnonymousDistributionFactory.new
-    distribution_factory.build_with_arbitrary_assignment(@alternatives, population_size)
+    probability_function = distribution_factory.build_function_having_random_profile_assignment(@alternatives, population_size)
+    probability_function.build_population_of_size(population_size)
+  end
+
+  def build_all_profiles_from_approximate_uniform_distribution(population_size)
+    population_size.times.collect {uniformly_random_permutation}
   end
 
   # private
