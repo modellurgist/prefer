@@ -21,7 +21,8 @@ class ImpartialAnonymousDistributionFactory < DistributionFactory
   
   def build_unnormalized_distribution(alternatives)
     number_of_permutations_of(alternatives).times.collect do
-      @random_service.select_integer_from_zero_to_one_less_than(10000)
+      random_integer = @random_service.select_integer_from_zero_to_one_less_than(10000)
+      random_integer
     end
   end
 

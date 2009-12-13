@@ -35,7 +35,8 @@ class RandomService
     if (highest_integer == 0 || highest_integer.nil?) # should return a decimal >= 0 and < 1.0
       return (select_true_random_integer_from_zero_to_one_less_than(1, 0, 9999) / 10000)
     else
-      return @true_generator.randnum(1, 0, (highest_integer-1))
+      collection_with_single_number = @true_generator.randnum(1, 0, (highest_integer-1))
+      return collection_with_single_number[0]
     end
   end
 
