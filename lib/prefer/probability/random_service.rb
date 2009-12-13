@@ -10,10 +10,14 @@ class RandomService
   # assumption for consistency with Kernal.rand:  
   #   delegate should return a random floating point number between 0 and 1 when passed 0 or nil (which should default to 0)
   def select_integer_from_zero_to_one_less_than(highest_integer)
-    select_pseudorandom_integer_from_zero_to_one_less_than(highest_integer)
+    self.send("select_#{random_number_generator_name}_integer_from_zero_to_one_less_than".to_sym, highest_integer)
   end
 
   # private
+
+  def random_number_generator_name
+    "pseudorandom"
+  end
 
   def select_pseudorandom_integer_from_zero_to_one_less_than(highest_integer)
     rand(highest_integer)
