@@ -13,11 +13,13 @@ class Simulation < ActiveRecord::Base
   end
 
   def run
-    mode_factory = ModeFactory.new
-    runner = mode_factory.build_runner(self.mode)
-    #specifications = build_specifications_hash
-    #@report_string = runner.run_with_hash_parameters(specifications, EXPORT_ON)
-    @report_string = runner.run_with_hash_parameters(build_specifications_hash_from_simulation, EXPORT_ON)
+    RandomService.set_random_number_generator("pseudorandom")
+    run_tasks
+  end
+
+  def run_true_random
+    RandomService.set_random_number_generator("true_random")
+    run_tasks
   end
 
   def available_simulation_modes
@@ -38,6 +40,12 @@ class Simulation < ActiveRecord::Base
   end
 
   # private
+
+  def run_tasks
+    mode_factory = ModeFactory.new
+    runner = mode_factory.build_runner(self.mode)
+    @report_string = runner.run_with_hash_parameters(build_specifications_hash_from_simulation, EXPORT_ON)
+  end
 
   def modes
     {"Define a range of sample sizes. For each constant step within it, run one election for each repetition" => "RangeRunner"}

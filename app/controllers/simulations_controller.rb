@@ -6,6 +6,12 @@ class SimulationsController < ApplicationController
     @report_string = simulation.report_string
   end
 
+  def run_true_random
+    simulation = Simulation.find(params[:id])
+    simulation.run_true_random
+    @report_string = simulation.report_string
+  end
+
   # GET /simulations
   # GET /simulations.xml
   def index

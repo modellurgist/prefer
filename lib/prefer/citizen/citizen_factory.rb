@@ -19,7 +19,6 @@ class CitizenFactory
   # private
 
   def build_all_profiles(population_size, distribution_symbol)
-    # TODO: don't use collect, just ask preference factory for collection with given distribution
     @preference_factory.send("build_all_profiles_from_#{distribution_symbol.to_s}_distribution".to_sym, population_size)
   end
 

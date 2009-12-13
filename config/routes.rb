@@ -3,9 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :alternatives
 
-  map.resources :simulations
-
-  map.resources :simulations, :member => { :run => :get }  # Since simulations is root, this run method seems to get trigger: bug?
+  map.resources :simulations, :member => { :run => :get, :run_true_random => :get }  # Since simulations is root, this run method seems to get trigger: bug?
 
   # The priority is based upon order of creation: first created -> highest priority.
 
