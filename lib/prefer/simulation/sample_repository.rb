@@ -104,9 +104,9 @@ class SampleRepository
 
   def entropy_of_actual_preference_distribution
     @preference_profiles = @population_record.ballots
-    distribution = ProbabilityMassFunctionGenerator.new
-    distribution.initialize_with_population(@preference_profiles)
-    @distribution_analyzer.entropy(distribution)
+    function_generator = ProbabilityMassFunctionGenerator.new
+    function = function_generator.build_from_population(@preference_profiles)
+    @distribution_analyzer.entropy(function)
   end
 
   def entropy_of_uniform_distribution

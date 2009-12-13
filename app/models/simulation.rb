@@ -31,6 +31,12 @@ class Simulation < ActiveRecord::Base
     methods.sort
   end
 
+  def available_distribution_types
+    types = { "Approximately Uniform Distribution" => :approximate_uniform,
+              "All Distributions Equally Likely (IAC)" => :impartial_anonymous}
+    types.sort
+  end
+
   # private
 
   def modes
@@ -43,15 +49,6 @@ class Simulation < ActiveRecord::Base
     simulation_attributes[:alternatives] = alternatives
     simulation_attributes
   end
-
-  #def build_specifications_hash  # deprecated !
-  #  parameters = Hash.new
-  #  parameters[:alternatives] = self.alternatives
-  #  parameters[:population_size] = self.population_size
-  #  parameters[:voting_method] = self.voting_method
-  #  parameters[:sample_size_increment] = self.sample_size_increment
-  #  parameters
-  #end
 
   def alternatives
     alternatives_set = self.alternatives_set

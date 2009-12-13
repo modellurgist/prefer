@@ -1,5 +1,6 @@
 
 require 'lib/prefer/probability/random_service'
+require 'lib/prefer/probability/impartial_anonymous_distribution_factory'
 
 class PreferenceFactory
 

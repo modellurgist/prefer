@@ -36,6 +36,10 @@
     <%= f.collection_select(:alternatives_set_id, AlternativesSet.all, :id, :description) %>
   </p>
   <p>
+    <%= f.label :distribution_of_preference_orderings %><br />
+    <%= f.select(:distribution_type, @simulation.available_distribution_types) %>
+  </p>
+  <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>

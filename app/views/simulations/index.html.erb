@@ -15,7 +15,7 @@
     <th>Maximum Sample Size</th>
     <th>Size of Interval Between Sample Sizes</th>
     <th>Alternatives Set</th>
-    <th>Preference Distribution Generation Method</th>
+    <th>Distribution of Preference Orderings</th>
     <th class="link"></th>
     <th class="link"></th>
   </tr>
@@ -32,8 +32,9 @@
     <td><%=h simulation.sample_size_maximum %></td>
     <td><%=h simulation.sample_size_increment %></td>
     <td><%=h simulation.alternatives_set_name %></td>
-    <td></td>
+    <td><%=h simulation.distribution_type %></td>
     <td class="link"><%= link_to 'Run', run_simulation_path(simulation) %></td>
+    <td class="link"><%= link_to 'Run with True Randomness', run_simulation_path(simulation) %></td>
     <td class="link"><%= link_to 'Delete', simulation, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

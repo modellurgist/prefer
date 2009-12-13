@@ -1,9 +1,9 @@
 class AddProfileDistributionGenerationMethodToSimulation < ActiveRecord::Migration
   def self.up
-    add_column :simulations, :profile_distribution_generation_method, :string
+    add_column :simulations, :distribution_type, :string
   end
 
   def self.down
-    remove_column :simulations, :profile_distribution_generation_method
+    remove_column :simulations, :distribution_type
   end
 end
