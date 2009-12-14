@@ -25,13 +25,14 @@ class SampleStatisticsSuite
       @statistics_hash.clear
       repetition_analysis_symbols.each do |analysis_symbol|
         add_statistic(:variance, analysis_symbol, sample_size, variance_closure)
+        add_statistic(:mean, analysis_symbol, sample_size, mean_closure)
       end
       store_statistics_for_sample_size(sample_size)
     end
   end
 
   def store_statistics_for_sample_size(sample_size)
-    @sample_repository.store_statistics_for_sample_size(@statistics_hash, sample_size)
+    @sample_repository.store_statistics_for_sample_size(@statistics_hash.dup, sample_size)
   end
 
   def repetition_analysis_symbols
@@ -41,6 +42,12 @@ class SampleStatisticsSuite
   def variance_closure
     return lambda do |sample_values, population_mean|
       @statistics_calculator.sample_variance_given_population_mean(sample_values, population_mean)
+    end
+  end
+  
+  def mean_closure
+    return lambda do |sample_values, population_mean|
+      @statistics_calculator.sample_mean(sample_values)
     end
   end
 
@@ -67,7 +74,6 @@ class SampleStatisticsSuite
       population_mean = population_analyses[variable_symbol]
       variable_statistic_hash[variable_symbol] = statistic_closure.call(sample_values, population_mean)
     end
-
     @statistics_hash[statistic_symbol] = {analysis_symbol => variable_statistic_hash}
   end
 

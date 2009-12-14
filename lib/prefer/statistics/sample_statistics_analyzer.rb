@@ -8,6 +8,9 @@ class SampleStatisticsAnalyzer
     sum(squared_deviations(sample, population_mean)) / (sample.size - 1)
   end
 
+  def sample_mean(sample_values)
+    sum(sample_values) / (sample_values.size)
+  end
 
   # private
 

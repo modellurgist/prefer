@@ -13,12 +13,11 @@ class ReportWriter
   end
 
   def report_all_sample_results
-    results_iterator = results_iterator(results)
     write_header
     report_specification
     report_probability_function
-    report_analyses(results_iterator, results)
-    report_elections(results_iterator)
+    report_analyses
+    report_elections
   end
 
   # private 
@@ -27,7 +26,7 @@ class ReportWriter
     @simulation_coordinator.results
   end
 
-  def results_iterator(results)
+  def results_iterator
     repetitions_hash = results.generate_hash_of_collected_repetitions_by_sample_size
     sorted_results = repetitions_hash.sort
     sorted_sizes = sorted_results.collect {|pair| pair.first}
@@ -138,10 +137,21 @@ class ReportWriter
     population_record.winning_alternative
   end
 
-  def report_analyses(results_iterator, results)
+  def report_analyses
     write_analysis_header
-    # one analysis:  vote_percent
-    self.puts "Vote Percent Analysis"
+    # START: one analysis:  vote_percent
+    # The Analyzed Results
+    self.puts "Vote Percent Analysis Results"
+    double_space
+    self.puts "Sample Size, Mean Percentage Vote for Population Winner, Variance, Lower 99% C.I., Upper 99% C.I." # this should be obtained from the analyzer or an analysis record
+    results_iterator.each do |sample_size, collection|
+      # consider generalizing, by first getting any analysis record and for each in it do the following
+      report_statistics_for_one_variable_for_one_sample(:vote_percent, sample_size)
+    end
+    report_one_analysis_record(population_record.population_size, population_record, :vote_percent, population_winner)
+    # The Raw Results
+    triple_space
+    self.puts "Vote Percent Raw Results"
     double_space
     self.puts "Sample Size, Percentage Vote for Population Winner" # this should be obtained from the analyzer or an analysis record
     results_iterator.each do |sample_size, collection|
@@ -151,7 +161,7 @@ class ReportWriter
       end
     end
     report_one_analysis_record(population_record.population_size, population_record, :vote_percent, population_winner)
-    # end of one analysis
+    # END of one analysis
   end
 
   # shouldn't an analysis know how to report itself, using the result record??!!
@@ -159,7 +169,18 @@ class ReportWriter
     self.puts "#{sample_size},#{record.analysis_records[analysis_symbol][alternative]}"
   end
 
-  def report_elections(results_iterator)
+  def report_statistics_for_one_variable_for_one_sample(calculated_variable_symbol, sample_size)
+    statistics_as_csv = simple_collection_to_csv_line(statistics_for(calculated_variable_symbol, sample_size))
+    self.puts "#{sample_size},#{statistics_as_csv}"
+  end
+
+  def statistics_for(calculated_variable_symbol, sample_size)
+    [:mean, :variance].collect do |statistic_symbol|
+      results.find_statistic_for_sample_size(sample_size, statistic_symbol, calculated_variable_symbol, population_winner)
+    end
+  end
+
+  def report_elections
     results_iterator.each do |sample_size, collection|
       collection.each do |record|
         report_one_election(sample_size, record)
