@@ -97,7 +97,7 @@ class ReportWriter
   end
 
   def collection_to_string(collection)
-    string = "(" 
+    string = "("
     collection.each {|item| string << "#{item} "}
     string = string.strip
     string << ")"
@@ -109,7 +109,7 @@ class ReportWriter
     double_space
     self.puts "Ballot, Probability"
     class_probability_relation.each do |pair|
-      self.puts simple_collection_to_csv_line(pair)
+      self.puts nested_collection_to_csv_line(pair)
     end
     double_space
     self.puts "Distribution type used to generate this function:  #{distribution_type.to_s}"
