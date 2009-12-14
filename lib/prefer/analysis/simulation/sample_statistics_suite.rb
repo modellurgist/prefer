@@ -26,6 +26,8 @@ class SampleStatisticsSuite
       repetition_analysis_symbols.each do |analysis_symbol|
         add_statistic(:variance, analysis_symbol, sample_size, variance_closure)
         add_statistic(:mean, analysis_symbol, sample_size, mean_closure)
+        add_statistic(:lower_confidence_limit, analysis_symbol, sample_size, lower_confidence_limit_closure)
+        add_statistic(:upper_confidence_limit, analysis_symbol, sample_size, upper_confidence_limit_closure)
       end
       store_statistics_for_sample_size(sample_size)
     end
@@ -48,6 +50,18 @@ class SampleStatisticsSuite
   def mean_closure
     return lambda do |sample_values, population_mean|
       @statistics_calculator.sample_mean(sample_values)
+    end
+  end
+
+  def lower_confidence_limit_closure
+    return lambda do |sample_values, population_mean|
+      @statistics_calculator.lower_confidence_limit(sample_values, population_mean)
+    end
+  end
+
+  def upper_confidence_limit_closure
+    return lambda do |sample_values, population_mean|
+      @statistics_calculator.upper_confidence_limit(sample_values, population_mean)
     end
   end
 

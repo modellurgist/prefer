@@ -175,7 +175,7 @@ class ReportWriter
   end
 
   def statistics_for(calculated_variable_symbol, sample_size)
-    [:mean, :variance].collect do |statistic_symbol|
+    [:mean, :variance, :lower_confidence_limit, :upper_confidence_limit].collect do |statistic_symbol|
       results.find_statistic_for_sample_size(sample_size, statistic_symbol, calculated_variable_symbol, population_winner)
     end
   end
