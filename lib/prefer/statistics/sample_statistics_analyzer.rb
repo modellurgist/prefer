@@ -32,7 +32,7 @@ class SampleStatisticsAnalyzer
     standard_deviation = standard_deviation(sample_variance_given_population_mean(sample_values, population_mean))
     sample_size = sample_values.size
     confidence_level = 0.99
-    (standard_deviation * tz_statistic(confidence_level, sample_size))
+    (standard_deviation * tz_statistic(confidence_level, sample_size)) / Math.sqrt(sample_size)
   end
 
   # private
