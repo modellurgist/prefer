@@ -10,7 +10,7 @@ class VotePercentComparisonMethodTest < Test::Unit::TestCase
   context "given a simulation coordinator initialized with valid specifications for 10 citizens, 3 alternatives, plurality method, and increment size 1" do
     setup do 
       parameters = {:alternatives => ["Bush","Gore","Nader"], :population_size => 10, :voting_method => :plurality, :sample_size_increment => 1, 
-                    :repetitions => 1, :sample_size_minimum => 1, :sample_size_maximum => 9, :distribution_type => :approximate_uniform}
+                    :repetitions => 2, :sample_size_minimum => 1, :sample_size_maximum => 9, :distribution_type => :approximate_uniform}
       @specification = SimulationSpecification.new(parameters)
       @coordinator = SimulationCoordinator.new(@specification)
     end
