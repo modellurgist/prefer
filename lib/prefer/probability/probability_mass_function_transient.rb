@@ -1,5 +1,5 @@
 
-class ProbabilityMassFunction
+class ProbabilityMassFunctionTransient
 
   attr_reader :integer_probability_relation, :class_probability_relation
 

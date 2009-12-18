@@ -1,5 +1,5 @@
 
-require 'lib/prefer/probability/probability_mass_function'
+require 'lib/prefer/probability/probability_mass_function_transient'
 
 class ProbabilityMassFunctionGenerator
 
@@ -16,7 +16,7 @@ class ProbabilityMassFunctionGenerator
   # private
 
   def build_probability_mass_function_from_integers
-    function = ProbabilityMassFunction.new
+    function = ProbabilityMassFunctionTransient.new
     @integers.each do |integer|
       function.add_integer_mapping(integer, integer_probability(integer))
     end
@@ -34,7 +34,7 @@ class ProbabilityMassFunctionGenerator
   end
 
   def build_probability_mass_function_from_population
-    function = ProbabilityMassFunction.new
+    function = ProbabilityMassFunctionTransient.new
     identify_unique_classes.each do |a_class|
       function.add_class_mapping(a_class, class_probability(a_class))
     end
