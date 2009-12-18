@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :preference_orderings
+
+  map.resources :simulation_replicates
+
   map.resources :alternatives_sets
 
   map.resources :alternatives

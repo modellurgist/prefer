@@ -75,6 +75,15 @@ class ProbabilityMassFunctionTransient
     @class_probability_relation.size
   end
 
+  def first_class
+    a_class_probability_relation_element = @class_probability_relation.first
+    a_class_probability_relation_element.first 
+  end
+
+  def number_of_alternatives
+    first_class.length
+  end
+
   # private
 
   def population_members_of_class_from_integer_relation(pair)
