@@ -24,6 +24,10 @@ class SampleStatisticsAnalyzer
     sample_mean(sample_values) + half_confidence_interval(sample_values, population_mean)
   end
 
+  def confidence_interval_width(sample_values, population_mean)
+    2 * half_confidence_interval(sample_values, population_mean)
+  end
+
   def standard_deviation(variance)
     Math.sqrt(variance)
   end

@@ -28,6 +28,7 @@ class SampleStatisticsSuite
         add_statistic(:mean, analysis_symbol, sample_size, mean_closure)
         add_statistic(:lower_confidence_limit, analysis_symbol, sample_size, lower_confidence_limit_closure)
         add_statistic(:upper_confidence_limit, analysis_symbol, sample_size, upper_confidence_limit_closure)
+        add_statistic(:confidence_interval_width, analysis_symbol, sample_size, confidence_interval_width_closure)
       end
       store_statistics_for_sample_size(sample_size)
     end
@@ -62,6 +63,12 @@ class SampleStatisticsSuite
   def upper_confidence_limit_closure
     return lambda do |sample_values, population_mean|
       @statistics_calculator.upper_confidence_limit(sample_values, population_mean)
+    end
+  end
+
+  def confidence_interval_width_closure
+    return lambda do |sample_values, population_mean|
+      @statistics_calculator.confidence_interval_width(sample_values, population_mean)
     end
   end
 

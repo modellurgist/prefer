@@ -143,7 +143,7 @@ class ReportWriter
     # The Analyzed Results
     self.puts "Vote Percent Analysis Results"
     double_space
-    self.puts "Sample Size, Mean Percentage Vote for Population Winner, Variance, Lower 99% C.I., Upper 99% C.I." # this should be obtained from the analyzer or an analysis record
+    self.puts "Sample Size, Mean Percentage Vote for Population Winner, Variance, 99% Confidence Interval Width, Lower 99% C.I., Upper 99% C.I." # this should be obtained from the analyzer or an analysis record
     results_iterator.each do |sample_size, collection|
       # consider generalizing, by first getting any analysis record and for each in it do the following
       report_statistics_for_one_variable_for_one_sample(:vote_percent, sample_size)
@@ -175,7 +175,7 @@ class ReportWriter
   end
 
   def statistics_for(calculated_variable_symbol, sample_size)
-    [:mean, :variance, :lower_confidence_limit, :upper_confidence_limit].collect do |statistic_symbol|
+    [:mean, :variance, :confidence_interval_width, :lower_confidence_limit, :upper_confidence_limit].collect do |statistic_symbol|
       results.find_statistic_for_sample_size(sample_size, statistic_symbol, calculated_variable_symbol, population_winner)
     end
   end
