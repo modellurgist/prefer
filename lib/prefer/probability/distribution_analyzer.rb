@@ -1,6 +1,12 @@
 
+require 'lib/prefer/statistics/sample_statistics_analyzer'
+require 'lib/prefer/voting/pairwise_method'
+
 class DistributionAnalyzer
 
+  def initialize
+    @statistician = SampleStatisticsAnalyzer.new
+  end
 
   def entropy(distribution)
     sum = 0.0
@@ -10,7 +16,20 @@ class DistributionAnalyzer
     sum
   end
 
+  def euclidean_normal_of_pairwise_election_vector(function)
+    euclidean_normal(normalized_pairwise_election_vector_coordinates(function))
+  end
+
   # private
+
+  def normalized_pairwise_election_vector_coordinates(function)
+    @pairwise_method = PairwiseMethod.new
+    @pairwise_method.pair_results_for_function(function)
+  end
+
+  def euclidean_normal(vector_coordinates)
+    Math.sqrt(@statistician.sum(@statistician.squares_for_collection(vector_coordinates)))
+  end
  
   def self_information(class_probability) 
     log_base_2(inverse(class_probability))

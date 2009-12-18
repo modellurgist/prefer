@@ -117,6 +117,7 @@ class ReportWriter
     self.puts "Characteristics of this Probability Distribution of Preference Orderings"
     double_space
     self.puts "entropy = #{results.entropy_of_actual_preference_distribution} bits  (Note: entropy of uniform distribution is #{results.entropy_of_uniform_distribution})"
+    self.puts "euclidean normal of pairwise election vector = #{results.euclidean_normal_of_pairwise_election_vector_for_actual_distribution}"
   end
 
   def class_probability_relation

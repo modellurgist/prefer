@@ -58,6 +58,10 @@ class SampleStatisticsAnalyzer
     numbers.inject {|sum,number| sum + number}
   end
 
+  def squares_for_collection(values)
+    values.collect {|value| value**2}
+  end
+
   def squared_deviations(sampled_values, population_mean)
     sampled_values.collect {|value| (value - population_mean)**2}
   end

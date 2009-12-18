@@ -111,6 +111,11 @@ class SampleRepository
     @distribution_analyzer.entropy(function)
   end
 
+  def euclidean_normal_of_pairwise_election_vector_for_actual_distribution
+    function = probability_mass_function
+    @distribution_analyzer.euclidean_normal_of_pairwise_election_vector(function)
+  end
+
   def population_ballots
     retrieve_population_record.ballots
   end
