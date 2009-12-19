@@ -17,7 +17,7 @@ class ReportWriter
     report_specification
     report_probability_function
     report_analyses
-    report_elections
+    #report_elections
   end
 
   # private 
@@ -152,16 +152,16 @@ class ReportWriter
     report_one_analysis_record(population_record.population_size, population_record, :vote_percent, population_winner)
     # The Raw Results
     triple_space
-    self.puts "Vote Percent Raw Results"
-    double_space
-    self.puts "Sample Size, Percentage Vote for Population Winner" # this should be obtained from the analyzer or an analysis record
-    results_iterator.each do |sample_size, collection|
-      # consider generalizing, by first getting any analysis record and for each in it do the following
-      collection.each do |record|
-        report_one_analysis_record(sample_size, record, :vote_percent, population_winner)
-      end
-    end
-    report_one_analysis_record(population_record.population_size, population_record, :vote_percent, population_winner)
+    #self.puts "Vote Percent Raw Results"
+    #double_space
+    #self.puts "Sample Size, Percentage Vote for Population Winner" # this should be obtained from the analyzer or an analysis record
+    #results_iterator.each do |sample_size, collection|
+    #  # consider generalizing, by first getting any analysis record and for each in it do the following
+    #  collection.each do |record|
+    #    report_one_analysis_record(sample_size, record, :vote_percent, population_winner)
+    #  end
+    #end
+    #report_one_analysis_record(population_record.population_size, population_record, :vote_percent, population_winner)
     # END of one analysis
   end
 
