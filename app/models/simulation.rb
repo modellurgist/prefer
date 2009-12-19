@@ -48,7 +48,8 @@ class Simulation < ActiveRecord::Base
   end
 
   def modes
-    {"Define a range of sample sizes. For each constant step within it, run one election for each repetition" => "RangeRunner"}
+    #{"Define a range of sample sizes. For each constant step within it, run one election for each repetition" => "RangeRunner"}
+    {"For range of sample sizes at constant steps, run repeated elections" => "RangeRunner"}
   end
 
   def build_specifications_hash_from_simulation

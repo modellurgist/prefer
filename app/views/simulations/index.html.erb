@@ -7,6 +7,7 @@
 
 <table>
   <tr>
+    <th>Assertion ID</th>
     <th>Simulation Type</th>
     <th>Voting method</th>
     <th>Population size</th>
@@ -23,6 +24,7 @@
   <tbody>
 <% @simulations.each do |simulation| %>
   <tr>
+    <td><%=h simulation.assertion_identifier %></td>
     <td><% inverted_modes = simulation.modes.invert %>
         <%=h inverted_modes[simulation.mode] %></td>
     <td><%=h simulation.voting_method %></td>
@@ -34,7 +36,7 @@
     <td><%=h simulation.alternatives_set_name %></td>
     <td><%=h simulation.distribution_type %></td>
     <td class="link"><%= link_to 'Run (pseudo random)', run_simulation_path(simulation) %></td>
-    <td class="link">Run (true random)<%#= link_to 'Run (true random)', run_true_random_simulation_path(simulation) %></td>
+    <td class="link"><%= link_to 'Run (true random)', run_true_random_simulation_path(simulation) %></td>
     <td class="link"><%= link_to 'Delete', simulation, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

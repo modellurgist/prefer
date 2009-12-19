@@ -4,6 +4,10 @@
   <%= f.error_messages %>
 
   <p>
+    <%= f.label :assertion_id %><br />
+    <%= f.text_field :assertion_identifier %>
+  </p>
+  <p>
     <%= f.label :simulation_type %><br />
     <%= f.select(:mode, @simulation.available_simulation_modes) %>
   </p>

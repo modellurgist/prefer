@@ -8,7 +8,7 @@ class PairwiseMethod < VotingMethod
     @statistician = SampleStatisticsAnalyzer.new
   end
 
-  # define standard order as order in class probability relation
+  # define standard order as order in class probability relation?
   def pair_results_for_function(function)
     pair_results = pair_results_for_all_ballots(function)
     ballot_summations(pair_results)
@@ -38,20 +38,12 @@ class PairwiseMethod < VotingMethod
     classes = function.classes
     number_classes = classes.length
     number_alternatives = function.number_of_alternatives
-    #indices = 0..(classes.length - 1)
-    #index_pair_permutations = pair_permutations_for_set_size(classes.length)
-    #index_pair_combinations = index_pair_permutations.uniq
     index_pair_combinations = Combination.get(number_alternatives, 2)
     reference_class = function.first_class
     @pair_combinations = index_pair_combinations.collect do |index_pair|
       [reference_class[index_pair.first], reference_class[index_pair.last]]
     end
   end
-
-  #def pair_permutations_for_set_size(set_size)
-  #  max_index = set_size - 1
-  #
-  #end
 
   def pair_results_for_one_ballot(class_probability_element)
     @pair_combinations.collect do |pair_for_comparison|

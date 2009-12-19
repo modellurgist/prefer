@@ -10,6 +10,7 @@ class SimulationsController < ApplicationController
     simulation = Simulation.find(params[:id])
     simulation.run_true_random
     @report_string = simulation.report_string
+    render :action => :run
   end
 
   # GET /simulations
