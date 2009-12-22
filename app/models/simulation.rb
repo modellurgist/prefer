@@ -35,6 +35,7 @@ class Simulation < ActiveRecord::Base
 
   def available_distribution_types
     types = { "Approximately Uniform Distribution" => :approximate_uniform,
+              "Bouncing Ball Distribution" => :bouncing_ball,
               "All Distributions Equally Likely (IAC)" => :impartial_anonymous}
     types.sort
   end
