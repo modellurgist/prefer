@@ -7,8 +7,8 @@ class ImpartialAnonymousDistributionFactory < DistributionFactory
   # private
 
   def build_function_with_integer_probability_mappings(alternatives)
-    integer_distribution = hardcoded_integer_distribution
-    #integer_distribution = build_unnormalized_distribution(alternatives)
+    #integer_distribution = hardcoded_integer_distribution
+    integer_distribution = build_unnormalized_distribution(alternatives)
     @probability_function_generator.build_from_integers(integer_distribution)
   end
 
