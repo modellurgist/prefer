@@ -76,6 +76,18 @@ class SampleRepository
     return_value
   end
 
+  def percent_of_repetitions_matching_population_winner_for_size(sample_size)
+    population_record = retrieve_population_record
+    repetition_repo = retrieve_repetition_repository(sample_size)
+    100.0 * repetition_repo.number_of_winner_matches(population_record) / repetition_repo.repetition_count
+  end
+
+  def percent_of_repetitions_matching_population_social_order_for_size(sample_size)
+    population_record = retrieve_population_record
+    repetition_repo = retrieve_repetition_repository(sample_size)
+    100.0 * repetition_repo.number_of_social_order_matches(population_record) / repetition_repo.repetition_count
+  end
+
   def find_all_repetitions_for_size(sample_size)
     repetition_repo = retrieve_repetition_repository(sample_size)
     repetition_repo.find_all_as_unindexed

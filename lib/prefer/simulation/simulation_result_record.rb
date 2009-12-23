@@ -14,6 +14,10 @@ class SimulationResultRecord
     @simulation_analysis_records = Hash.new
   end
 
+  def social_order
+    @election_record[:social_profile]
+  end
+
   def winning_alternative
     @election_record[:social_profile][0]
   end

@@ -140,6 +140,27 @@ class ReportWriter
 
   def report_analyses
     write_analysis_header
+    report_outcome_comparisons_analysis
+    report_vote_percent_analysis
+  end
+
+  def report_outcome_comparisons_analysis
+    self.puts "Election Outcome Comparisons"
+    triple_space
+    self.puts "Sample Size, % of Samples Matching Population Winner, % of Samples Matching Population Social Order"
+    results_iterator.each do |sample_size, collection|
+      report_one_social_order(sample_size)
+    end
+    triple_space
+  end
+
+  def report_one_social_order(sample_size)
+    percent_matching_population_winner = results.percent_of_repetitions_matching_population_winner_for_size(sample_size)
+    percent_matching_population_social_order = results.percent_of_repetitions_matching_population_social_order_for_size(sample_size)
+    self.puts "#{sample_size},#{percent_matching_population_winner},#{percent_matching_population_social_order}"
+  end
+
+  def report_vote_percent_analysis
     # START: one analysis:  vote_percent
     # The Analyzed Results
     self.puts "Vote Percent Analysis Results"

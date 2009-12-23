@@ -5,10 +5,27 @@ class SampleRepetitionRepository
     @repetition_count = 0
     @repetition_map = Hash.new
     @statistics = Hash.new
+    @analyzer = SampleStatisticsAnalyzer.new
   end
 
   def repetition_count
     @repetition_map.size
+  end
+
+  def number_of_winner_matches(population_record)
+    find_all_as_unindexed.inject(0) do |memo,repetition|
+      if (repetition.winning_alternative == population_record.winning_alternative) then memo + 1
+      else memo
+      end
+    end
+  end
+
+  def number_of_social_order_matches(population_record)
+    find_all_as_unindexed.inject(0) do |memo,repetition|
+      if (repetition.social_order == population_record.social_order) then memo + 1
+      else memo
+      end
+    end
   end
 
   def store_repetition(record)

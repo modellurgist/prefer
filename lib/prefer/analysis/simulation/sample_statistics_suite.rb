@@ -24,6 +24,7 @@ class SampleStatisticsSuite
     @sample_repository.find_all_sample_sizes.each do |sample_size|
       @statistics_hash.clear
       repetition_analysis_symbols.each do |analysis_symbol|
+        #add_statistic(:most_frequent_winner, analysis_symbol, sample_size, most_frequent_winner_closure)
         add_statistic(:variance, analysis_symbol, sample_size, variance_closure)
         add_statistic(:mean, analysis_symbol, sample_size, mean_closure)
         add_statistic(:lower_confidence_limit, analysis_symbol, sample_size, lower_confidence_limit_closure)
